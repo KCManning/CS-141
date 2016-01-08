@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.Toolkit;
 import java.text.DecimalFormat;
 
 /**
@@ -18,6 +19,12 @@ public class OhmsLaw extends javax.swing.JFrame
     public OhmsLaw()
     {
         initComponents();
+        //set location of window
+        this.setLocationRelativeTo(null);
+        //set default button
+        this.getRootPane().setDefaultButton(calculateJButton);
+        //set icon
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/OhmsFormula.jpg"));
     }
 
     /**
@@ -32,15 +39,15 @@ public class OhmsLaw extends javax.swing.JFrame
 
         titleJLabel = new javax.swing.JLabel();
         vJLabel = new javax.swing.JLabel();
-        rJLabel = new javax.swing.JLabel();
-        iJLabel = new javax.swing.JLabel();
         voltsJTextField = new javax.swing.JTextField();
-        resistanceJTextField = new javax.swing.JTextField();
-        currentJTextField = new javax.swing.JTextField();
         voltsJLabel = new javax.swing.JLabel();
+        rJLabel = new javax.swing.JLabel();
+        resistanceJTextField = new javax.swing.JTextField();
         resistanceJLabel = new javax.swing.JLabel();
+        iJLabel = new javax.swing.JLabel();
+        currentJTextField = new javax.swing.JTextField();
         currentJLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        controlJPanel = new javax.swing.JPanel();
         calculateJButton = new javax.swing.JButton();
         clearJButton = new javax.swing.JButton();
         printJButton = new javax.swing.JButton();
@@ -50,7 +57,7 @@ public class OhmsLaw extends javax.swing.JFrame
         setTitle("Ohm's Law");
         setResizable(false);
 
-        titleJLabel.setFont(new java.awt.Font("Tahoma", 2, 24)); // NOI18N
+        titleJLabel.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         titleJLabel.setForeground(new java.awt.Color(153, 0, 0));
         titleJLabel.setLabelFor(titleJLabel);
         titleJLabel.setText("Ohm's Law");
@@ -59,27 +66,28 @@ public class OhmsLaw extends javax.swing.JFrame
         vJLabel.setLabelFor(vJLabel);
         vJLabel.setText("V:");
 
+        voltsJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        voltsJLabel.setText("volts");
+
         rJLabel.setLabelFor(vJLabel);
         rJLabel.setText("R:");
+
+        resistanceJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+
+        resistanceJLabel.setText("ohms");
 
         iJLabel.setLabelFor(vJLabel);
         iJLabel.setText("I:");
 
-        voltsJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-
-        resistanceJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-
+        currentJTextField.setEditable(false);
         currentJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        currentJTextField.setEnabled(false);
-
-        voltsJLabel.setText("volts");
-
-        resistanceJLabel.setText("ohms");
 
         currentJLabel.setText("amperes");
 
-        jPanel1.setLayout(new java.awt.GridLayout(2, 2));
+        controlJPanel.setLayout(new java.awt.GridLayout(2, 2));
 
+        calculateJButton.setMnemonic('C');
         calculateJButton.setText("Calculate");
         calculateJButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -88,8 +96,9 @@ public class OhmsLaw extends javax.swing.JFrame
                 calculateJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(calculateJButton);
+        controlJPanel.add(calculateJButton);
 
+        clearJButton.setMnemonic('l');
         clearJButton.setText("Clear");
         clearJButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -98,12 +107,14 @@ public class OhmsLaw extends javax.swing.JFrame
                 clearJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(clearJButton);
+        controlJPanel.add(clearJButton);
 
+        printJButton.setMnemonic('P');
         printJButton.setText("Print");
         printJButton.setEnabled(false);
-        jPanel1.add(printJButton);
+        controlJPanel.add(printJButton);
 
+        quitJButton.setMnemonic('Q');
         quitJButton.setText("Quit");
         quitJButton.addActionListener(new java.awt.event.ActionListener()
         {
@@ -112,7 +123,7 @@ public class OhmsLaw extends javax.swing.JFrame
                 quitJButtonActionPerformed(evt);
             }
         });
-        jPanel1.add(quitJButton);
+        controlJPanel.add(quitJButton);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -140,15 +151,15 @@ public class OhmsLaw extends javax.swing.JFrame
                         .addComponent(resistanceJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(resistanceJLabel))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(controlJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(titleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
+                .addComponent(titleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(vJLabel)
                     .addComponent(voltsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -164,7 +175,7 @@ public class OhmsLaw extends javax.swing.JFrame
                     .addComponent(iJLabel)
                     .addComponent(currentJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(controlJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -174,16 +185,18 @@ public class OhmsLaw extends javax.swing.JFrame
     private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
     {//GEN-HEADEREND:event_calculateJButtonActionPerformed
         // Calculate the current given voltage and resistance
-        DecimalFormat numberFormatter = new DecimalFormat("#,##0.0##");
+        DecimalFormat twoDecimals = new DecimalFormat("#,##0.00");
         float volts, resistance, current;
         volts = Float.parseFloat(voltsJTextField.getText());
         resistance = Float.parseFloat(resistanceJTextField.getText());
         current = volts / resistance;
-        currentJTextField.setText(numberFormatter.format(current));
+        currentJTextField.setText(twoDecimals.format(current));
     }//GEN-LAST:event_calculateJButtonActionPerformed
 
     private void clearJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJButtonActionPerformed
     {//GEN-HEADEREND:event_clearJButtonActionPerformed
+        //Centers the form
+
         // Clear all text fields to reset the form
         voltsJTextField.setText("");
         resistanceJTextField.setText("");
@@ -245,10 +258,10 @@ public class OhmsLaw extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calculateJButton;
     private javax.swing.JButton clearJButton;
+    private javax.swing.JPanel controlJPanel;
     private javax.swing.JLabel currentJLabel;
     private javax.swing.JTextField currentJTextField;
     private javax.swing.JLabel iJLabel;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton printJButton;
     private javax.swing.JButton quitJButton;
     private javax.swing.JLabel rJLabel;
