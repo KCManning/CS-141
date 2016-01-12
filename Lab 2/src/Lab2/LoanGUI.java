@@ -1,14 +1,16 @@
 package Lab2;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.awt.Toolkit;
+import java.text.DecimalFormat;
 
 /**
+ * Class LoanGui File LoanGui.java Description Calculate loan payment given
+ * amount, interest rate, and length
  *
- * @author Kevin
+ * @author Kevin Manning Environment PC, Windows 10, jdk8.2, NetBeans 8.1
+ * @version 1.0
+ * @see javax.swing.JFrame History Log 1/12 - Created Project; added GUI and
+ * starting codes
  */
 public class LoanGUI extends javax.swing.JFrame
 {
@@ -19,6 +21,12 @@ public class LoanGUI extends javax.swing.JFrame
     public LoanGUI()
     {
         initComponents();
+        //set Calculate button as default
+        this.getRootPane().setDefaultButton(calculateJButton);
+        //center window
+        this.setLocationRelativeTo(null);
+        //set icon for the form
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/Lab2/img0.jpg"));
     }
 
     /**
@@ -39,6 +47,12 @@ public class LoanGUI extends javax.swing.JFrame
         rateJTextField = new javax.swing.JTextField();
         yearsJLabel = new javax.swing.JLabel();
         yearsJTextField = new javax.swing.JTextField();
+        calculateJButton = new javax.swing.JButton();
+        paymentJTextField = new javax.swing.JTextField();
+        interestJLabel = new javax.swing.JLabel();
+        interestJTextField = new javax.swing.JTextField();
+        clearJButton = new javax.swing.JButton();
+        quitJButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -53,7 +67,6 @@ public class LoanGUI extends javax.swing.JFrame
         counterJTextField.setEditable(false);
         counterJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         counterJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        counterJTextField.setText("6");
         counterJTextField.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -111,6 +124,70 @@ public class LoanGUI extends javax.swing.JFrame
         });
         getContentPane().add(yearsJTextField);
 
+        calculateJButton.setBackground(new java.awt.Color(153, 153, 255));
+        calculateJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        calculateJButton.setMnemonic('C');
+        calculateJButton.setText("Calculate Payment");
+        calculateJButton.setToolTipText("Calculate Loan Payment");
+        calculateJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                calculateJButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(calculateJButton);
+
+        paymentJTextField.setEditable(false);
+        paymentJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        paymentJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        paymentJTextField.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                paymentJTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(paymentJTextField);
+
+        interestJLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        interestJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        interestJLabel.setText("Interest Paid");
+        getContentPane().add(interestJLabel);
+
+        interestJTextField.setEditable(false);
+        interestJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        interestJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        interestJTextField.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                interestJTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(interestJTextField);
+
+        clearJButton.setBackground(new java.awt.Color(153, 153, 255));
+        clearJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        clearJButton.setMnemonic('L');
+        clearJButton.setText("Clear");
+        clearJButton.setToolTipText("Reset Calculator");
+        getContentPane().add(clearJButton);
+
+        quitJButton.setBackground(new java.awt.Color(153, 153, 255));
+        quitJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        quitJButton.setMnemonic('X');
+        quitJButton.setText("Exit");
+        quitJButton.setToolTipText("Exit Program");
+        quitJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                quitJButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(quitJButton);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -133,6 +210,40 @@ public class LoanGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_yearsJTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_yearsJTextFieldActionPerformed
+
+    private void paymentJTextFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_paymentJTextFieldActionPerformed
+    {//GEN-HEADEREND:event_paymentJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_paymentJTextFieldActionPerformed
+
+    private void interestJTextFieldActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_interestJTextFieldActionPerformed
+    {//GEN-HEADEREND:event_interestJTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_interestJTextFieldActionPerformed
+
+    private void quitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJButtonActionPerformed
+    {//GEN-HEADEREND:event_quitJButtonActionPerformed
+        // End applicaiton
+        System.exit(0);
+    }//GEN-LAST:event_quitJButtonActionPerformed
+
+    private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
+    {//GEN-HEADEREND:event_calculateJButtonActionPerformed
+        // Calculate the Loan Payment
+        //Declare variables & assign
+        DecimalFormat twoDecimal = new DecimalFormat("#,###0.00");
+        
+        double loanAmount = Double.parseDouble(amountJTextField.getText());
+        double rate = Double.parseDouble(interestJTextField.getText());
+        double years = Double.parseDouble(yearsJTextField.getText());
+
+        double payment = 0f;
+        double interest = 0f;
+        
+        //Input
+        //Processing
+        //Output
+    }//GEN-LAST:event_calculateJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,8 +293,14 @@ public class LoanGUI extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel amountJLabel;
     private javax.swing.JTextField amountJTextField;
+    private javax.swing.JButton calculateJButton;
+    private javax.swing.JButton clearJButton;
     private javax.swing.JLabel counterJLabel;
     private javax.swing.JTextField counterJTextField;
+    private javax.swing.JLabel interestJLabel;
+    private javax.swing.JTextField interestJTextField;
+    private javax.swing.JTextField paymentJTextField;
+    private javax.swing.JButton quitJButton;
     private javax.swing.JLabel rateJLabel;
     private javax.swing.JTextField rateJTextField;
     private javax.swing.JLabel yearsJLabel;
