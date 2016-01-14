@@ -2,6 +2,7 @@ package Lab2;
 
 import java.awt.Toolkit;
 import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 
 /**
  * Class LoanGui File LoanGui.java Description Calculate loan payment given
@@ -237,33 +238,46 @@ public class LoanGUI extends javax.swing.JFrame
     int counter = 0;
     private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
     {//GEN-HEADEREND:event_calculateJButtonActionPerformed
-        // Calculate the Loan Payment
-        //Declare variables & assign
-        final int months = 12, percentConverter = 100;
+        try
+        {
+// Calculate the Loan Payment
+            //Declare variables & assign
+            final int months = 12, percentConverter = 100;
 
-        DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
+            DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
 
-        double loanAmount = Double.parseDouble(amountJTextField.getText());
-        double rate = Double.parseDouble(rateJTextField.getText()) / percentConverter;
-        double years = Double.parseDouble(yearsJTextField.getText());
+            double loanAmount = Double.parseDouble(amountJTextField.getText());
+            double rate = Double.parseDouble(rateJTextField.getText()) / percentConverter;
+            double years = Double.parseDouble(yearsJTextField.getText());
 
-        double payment = 0f;
-        double interest = 0f;
+            double payment = 0f;
+            double interest = 0f;
+            boolean invalidInputs = (loanAmount <= 0 || loanAmount > 1000000000 || rate < 0 || rate > 100 || years < 0 || years > 100);
+            
+            if(invalidInputs)
+                throw new NumberFormatException();
+            
+            //Input
+            //Processing
+            double top = 0.0, bottom = 0.0, monthlyInterestRate = rate / months;
+            top = loanAmount * monthlyInterestRate;
+            bottom = 1 - Math.pow((1 + monthlyInterestRate), years * -1);
 
-        //Input
-        //Processing
-        double top = 0.0, bottom = 0.0, monthlyInterestRate = rate / (months);
-        top = loanAmount * monthlyInterestRate;
-        bottom = 1 - Math.pow((1 + monthlyInterestRate), years * -1);
+            payment = top / bottom;
+            interest = payment * months * years - loanAmount;
+            counter++;
 
-        payment = top / bottom;
-        interest = payment - loanAmount;
-        counter++;
+            //Output
+            counterJTextField.setText(String.valueOf(counter));
+            paymentJTextField.setText(twoDecimal.format(payment));
+            interestJTextField.setText(twoDecimal.format(interest));
+        } catch (NumberFormatException exp)
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a positive number for all required fields", "Input Error", JOptionPane.ERROR_MESSAGE);
 
-        //Output
-        counterJTextField.setText(String.valueOf(counter));
-        paymentJTextField.setText(twoDecimal.format(payment));
-        interestJTextField.setText(twoDecimal.format(interest));
+            amountJTextField.requestFocus();
+            amountJTextField.selectAll();
+        }
 
 
     }//GEN-LAST:event_calculateJButtonActionPerformed
