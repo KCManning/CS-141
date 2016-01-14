@@ -27,6 +27,7 @@ public class LoanGUI extends javax.swing.JFrame
         this.setLocationRelativeTo(null);
         //set icon for the form
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/Lab2/img0.jpg"));
+        amountJTextField.requestFocus();
     }
 
     /**
@@ -172,6 +173,13 @@ public class LoanGUI extends javax.swing.JFrame
         clearJButton.setMnemonic('L');
         clearJButton.setText("Clear");
         clearJButton.setToolTipText("Reset Calculator");
+        clearJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(clearJButton);
 
         quitJButton.setBackground(new java.awt.Color(153, 153, 255));
@@ -226,24 +234,51 @@ public class LoanGUI extends javax.swing.JFrame
         // End applicaiton
         System.exit(0);
     }//GEN-LAST:event_quitJButtonActionPerformed
-
+    int counter = 0;
     private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
     {//GEN-HEADEREND:event_calculateJButtonActionPerformed
         // Calculate the Loan Payment
         //Declare variables & assign
-        DecimalFormat twoDecimal = new DecimalFormat("#,###0.00");
-        
+        final int months = 12, percentConverter = 100;
+
+        DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
+
         double loanAmount = Double.parseDouble(amountJTextField.getText());
-        double rate = Double.parseDouble(interestJTextField.getText());
+        double rate = Double.parseDouble(rateJTextField.getText()) / percentConverter;
         double years = Double.parseDouble(yearsJTextField.getText());
 
         double payment = 0f;
         double interest = 0f;
-        
+
         //Input
         //Processing
+        double top = 0.0, bottom = 0.0, monthlyInterestRate = rate / (months);
+        top = loanAmount * monthlyInterestRate;
+        bottom = 1 - Math.pow((1 + monthlyInterestRate), years * -1);
+
+        payment = top / bottom;
+        interest = payment - loanAmount;
+        counter++;
+
         //Output
+        counterJTextField.setText(String.valueOf(counter));
+        paymentJTextField.setText(twoDecimal.format(payment));
+        interestJTextField.setText(twoDecimal.format(interest));
+
+
     }//GEN-LAST:event_calculateJButtonActionPerformed
+
+    private void clearJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJButtonActionPerformed
+    {//GEN-HEADEREND:event_clearJButtonActionPerformed
+        // Clear All Fields and Reset Form
+        amountJTextField.setText("");
+        counterJTextField.setText("");
+        rateJTextField.setText("");
+        yearsJTextField.setText("");
+        paymentJTextField.setText("");
+        interestJTextField.setText("");
+        amountJTextField.requestFocus();
+    }//GEN-LAST:event_clearJButtonActionPerformed
 
     /**
      * @param args the command line arguments
