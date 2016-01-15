@@ -261,7 +261,7 @@ public class LoanGUI extends javax.swing.JFrame
             //Processing
             double top = 0.0, bottom = 0.0, monthlyInterestRate = rate / months;
             top = loanAmount * monthlyInterestRate;
-            bottom = 1 - Math.pow((1 + monthlyInterestRate), years * -1);
+            bottom = 1 - Math.pow((1 + monthlyInterestRate), (years * -months));
 
             payment = top / bottom;
             interest = payment * months * years - loanAmount;
