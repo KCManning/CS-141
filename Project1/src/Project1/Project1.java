@@ -4,14 +4,17 @@ import java.awt.Toolkit;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Class: Project1
+ * File: Project1.java 
+ * Description: GUI interface for Annuity calculator
  *
- * @author Kevin
+ * @author: Kevin Manning
+ * Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+ * Date: 1/25/2016
+ * @version 1.0 History Log: 1/25/16 - Built base class structure
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 public class Project1 extends javax.swing.JFrame
 {
@@ -27,7 +30,9 @@ public class Project1 extends javax.swing.JFrame
         //set default button
         this.getRootPane().setDefaultButton(calcJButton);
         //set icon
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/Project1/house.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(
+                "src/Project1/house.png"));
+
         //Sets form to default values and sets focus
         callDefaults();
     }
@@ -84,6 +89,8 @@ public class Project1 extends javax.swing.JFrame
         rateJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         rateJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         rateJLabel.setText("Interest (as a %):");
+
+        rateJSpinner.setModel(new javax.swing.SpinnerNumberModel(8.0d, 0.0d, 100.0d, 0.5d));
 
         nJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         nJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -208,8 +215,9 @@ public class Project1 extends javax.swing.JFrame
 
         printJButton.setBackground(new java.awt.Color(102, 204, 255));
         printJButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        printJButton.setMnemonic('Q');
-        printJButton.setText("Quit");
+        printJButton.setMnemonic('P');
+        printJButton.setText("Print");
+        printJButton.setEnabled(false);
         printJButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -220,30 +228,58 @@ public class Project1 extends javax.swing.JFrame
 
         quitJButton.setBackground(new java.awt.Color(102, 204, 255));
         quitJButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        quitJButton.setMnemonic('P');
-        quitJButton.setText("Print");
-        quitJButton.setEnabled(false);
+        quitJButton.setMnemonic('Q');
+        quitJButton.setText("Quit");
+        quitJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                quitJButtonActionPerformed(evt);
+            }
+        });
 
         fileJMenu.setMnemonic('F');
         fileJMenu.setText("File");
 
         clearJMenuItem.setText("Clear");
+        clearJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(clearJMenuItem);
 
         printJMenuItem.setText("Print");
         fileJMenu.add(printJMenuItem);
 
         closeJMenuItem.setText("Close");
+        closeJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                closeJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(closeJMenuItem);
 
         mainJMenuBar.add(fileJMenu);
 
+        helpJMenu.setMnemonic('p');
         helpJMenu.setText("Help");
 
         instJMenuItem.setText("Instructions");
         helpJMenu.add(instJMenuItem);
 
         aboutJMenuItem.setText("About");
+        aboutJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                aboutJMenuItemActionPerformed(evt);
+            }
+        });
         helpJMenu.add(aboutJMenuItem);
 
         mainJMenuBar.add(helpJMenu);
@@ -262,9 +298,9 @@ public class Project1 extends javax.swing.JFrame
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(clrJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(quitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(printJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(printJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(quitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,8 +341,8 @@ public class Project1 extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clrJButton)
-                    .addComponent(quitJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(printJButton))
+                    .addComponent(printJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(quitJButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -332,16 +368,15 @@ public class Project1 extends javax.swing.JFrame
             DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
             AnnuityStorage annuity = new AnnuityStorage(
                     Double.parseDouble(paymentJTextField.getText()),
-                    (Integer) rateJSpinner.getValue(),
+                    (Double) rateJSpinner.getValue(),
                     Integer.parseInt(nJTextField.getText()),
                     Integer.parseInt(yearsJTextField.getText())
             );
-            boolean invalidInputs = (annuity.getDblPayment() <= 0 
-                    || annuity.getDblPayment() > 1000000000 
+            boolean invalidInputs = (annuity.getDblPayment() <= 0
+                    || annuity.getDblPayment() > 1000000000
                     || annuity.getDblRate() < 0 || annuity.getDblRate() > 100
                     || annuity.getIntN() < 0 || annuity.getIntN() > 1000
-                    || annuity.getIntYears() < 0 || annuity.getIntYears() > 100
-                    );
+                    || annuity.getIntYears() < 0 || annuity.getIntYears() > 100);
 
             if (invalidInputs)
             {
@@ -350,16 +385,18 @@ public class Project1 extends javax.swing.JFrame
 
             //Input
             //Processing
-           //Output
-           // paymentJTextField.setText(twoDecimal.format(payment));
-          //  interestJTextField.setText(twoDecimal.format(interest));
+            //Output
+            balanceJTextField.setText(twoDecimal.format(annuity.getDblBalance()));
+            interestJTextField.setText(twoDecimal.format(annuity.getDblInterest()));
+            totalJTextField.setText(twoDecimal.format(annuity.getDblTotal()));
 
         } catch (NumberFormatException exp)
         {
-            errorJLabel.setText("Please enter a positive number for all required fields");
+            errorJLabel.setText(
+                    "Please enter a positive number for all required fields");
 
-            //amountJTextField.requestFocus();
-            //amountJTextField.selectAll();
+            paymentJTextField.requestFocus();
+            paymentJTextField.selectAll();
         }
     }//GEN-LAST:event_calcJButtonActionPerformed
 
@@ -370,18 +407,51 @@ public class Project1 extends javax.swing.JFrame
 
     }//GEN-LAST:event_clrJButtonActionPerformed
 
-    private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
-    {//GEN-HEADEREND:event_printJButtonActionPerformed
+    private void quitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJButtonActionPerformed
+    {//GEN-HEADEREND:event_quitJButtonActionPerformed
         // End applicaiton
         System.exit(0);
+    }//GEN-LAST:event_quitJButtonActionPerformed
+
+    private void clearJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
+        // Clear All Fields and Resets Form
+        callDefaults();
+
+    }//GEN-LAST:event_clearJMenuItemActionPerformed
+
+    private void closeJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_closeJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_closeJMenuItemActionPerformed
+        // End applicaiton
+        System.exit(0);
+    }//GEN-LAST:event_closeJMenuItemActionPerformed
+
+    private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
+    {//GEN-HEADEREND:event_printJButtonActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_printJButtonActionPerformed
+
+    private void aboutJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_aboutJMenuItemActionPerformed
+        JOptionPane.showMessageDialog(null,
+                "The Future Annuitites Calculator (Project1) was created by "
+                + "Kevin Manning in January, 2016,\nin accordance with guidelines"
+                + " provided by Nico Cuvelski as part of the CS& 141 Course.\n\n"
+                + "This Calculator is provided as-is, and makes no guarantees of"
+                + " compatibility or functionality\noutside of the requirements "
+                + "of the class.\n\n\n"
+                + "For additional information regarding this software, please "
+                + "visit the \"Instructions\" option in\nthe \"Help\" menu.",
+                "About Project1",
+                JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_aboutJMenuItemActionPerformed
 
     private void callDefaults()
     {
         //Clears and resets all fields to default values
         //Used on instantiation and when user calls clear function
         paymentJTextField.setText("");
-        rateJSpinner.setValue(0);
+        rateJSpinner.setValue(8.0);
         nJTextField.setText("2");
         yearsJTextField.setText("");
         balanceJTextField.setText("$0.00");

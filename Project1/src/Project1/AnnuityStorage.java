@@ -5,35 +5,78 @@
  */
 package Project1;
 
-/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Class: AnnuityStorage
-* File: AnnuityStorage.java
-* Description: Stores and calculates annuity data
-* @author: Kevin Manning
-* Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
-* Date: 1/25/2016
-* @version 1.0
-* History Log: 1/25/16 - Built base class structure
-*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
+/**
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Class: AnnuityStorage
+ * File: AnnuityStorage.java 
+ * Description: Stores and calculates annuity data
+ *
+ * @author: Kevin Manning
+ * Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+ * Date: 1/25/2016
+ * @version 1.0 History Log: 1/25/16 - Built base class structure
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 public class AnnuityStorage
 {
+
+    //Declarations for class variables
     private double dblPayment;
-    private int dblRate;
+    private double dblRate;
     private int intN;
     private int intYears;
     private double dblBalance;
     private double dblTotal;
     private double dblInterest;
 
-    public AnnuityStorage(double dblPayment, int dblRate, int intN, int intYears)
+    //Constructor for class, fills and calculates all values in class
+    public AnnuityStorage(double dblPayment, double dblRate, int intN, int intYears)
     {
         this.dblPayment = dblPayment;
-        this.dblRate = dblRate;
+        this.dblRate = dblRate / 100.0;
         this.intN = intN;
         this.intYears = intYears;
+
+        setDblBalance();
+        setDblTotal();
+        setDblInterest();
     }
 
-    
+    //Default constructor to prevent null instantiation
+    public AnnuityStorage()
+    {
+        this.dblPayment = 0.0;
+        this.dblRate = 0.0;
+        this.intN = 0;
+        this.intYears = 0;
+
+        setDblBalance();
+        setDblTotal();
+        setDblInterest();
+    }
+
+    //Calcualtes the balance after a given time
+    private void setDblBalance()
+    {
+        double dblPeriodicRate = dblRate / intN;
+        this.dblBalance = dblPayment
+                * ((Math.pow((1 + dblPeriodicRate), (intN * intYears)) - 1)
+                / dblPeriodicRate);
+    }
+
+    //Calculates how much was made in base payments
+    private void setDblTotal()
+    {
+        this.dblTotal = dblPayment * intN * intYears;
+    }
+
+    //Calculates the interest earned
+    private void setDblInterest()
+    {
+        this.dblInterest = dblBalance - dblTotal;
+    }
+
+    //Generic Getters from this point forward
     public double getDblPayment()
     {
         return dblPayment;
@@ -69,6 +112,4 @@ public class AnnuityStorage
         return dblInterest;
     }
 
-    
-    
-    }
+}//end class
