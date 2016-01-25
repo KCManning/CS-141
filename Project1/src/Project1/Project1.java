@@ -57,7 +57,12 @@ public class Project1 extends javax.swing.JFrame
         quitJButton = new javax.swing.JButton();
         mainJMenuBar = new javax.swing.JMenuBar();
         fileJMenu = new javax.swing.JMenu();
+        clearJMenuItem = new javax.swing.JMenuItem();
+        printJMenuItem = new javax.swing.JMenuItem();
+        closeJMenuItem = new javax.swing.JMenuItem();
         helpJMenu = new javax.swing.JMenu();
+        instJMenuItem = new javax.swing.JMenuItem();
+        aboutJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -88,6 +93,8 @@ public class Project1 extends javax.swing.JFrame
             }
         });
 
+        imageJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Project1/house.png"))); // NOI18N
+
         javax.swing.GroupLayout inputJPanelLayout = new javax.swing.GroupLayout(inputJPanel);
         inputJPanel.setLayout(inputJPanelLayout);
         inputJPanelLayout.setHorizontalGroup(
@@ -106,14 +113,15 @@ public class Project1 extends javax.swing.JFrame
                     .addComponent(rateJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(paymentJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(imageJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(imageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         inputJPanelLayout.setVerticalGroup(
             inputJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(inputJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(inputJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(imageJLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(inputJPanelLayout.createSequentialGroup()
                         .addGroup(inputJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(paymentJLabel)
@@ -129,16 +137,16 @@ public class Project1 extends javax.swing.JFrame
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(inputJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(yearsJLabel)
-                            .addComponent(yearsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(imageJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                            .addComponent(yearsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         balanceJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         balanceJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         balanceJLabel.setText("Future Annuity Balance:");
 
+        balanceJTextField.setEditable(false);
+        balanceJTextField.setBackground(new java.awt.Color(255, 255, 255));
         balanceJTextField.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -151,9 +159,15 @@ public class Project1 extends javax.swing.JFrame
         totalJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         totalJLabel.setText("Total of Payments:");
 
+        totalJTextField.setEditable(false);
+        totalJTextField.setBackground(new java.awt.Color(255, 255, 255));
+
         interestJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         interestJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         interestJLabel.setText("Total of Interest Earned:");
+
+        interestJTextField.setEditable(false);
+        interestJTextField.setBackground(new java.awt.Color(255, 255, 255));
 
         errorJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         errorJLabel.setForeground(new java.awt.Color(255, 51, 51));
@@ -163,6 +177,7 @@ public class Project1 extends javax.swing.JFrame
         calcJButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         calcJButton.setMnemonic('C');
         calcJButton.setText("Calculate");
+        calcJButton.setToolTipText("Calculates Future Annuity");
         calcJButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -199,12 +214,30 @@ public class Project1 extends javax.swing.JFrame
         quitJButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         quitJButton.setMnemonic('P');
         quitJButton.setText("Print");
+        quitJButton.setEnabled(false);
 
         fileJMenu.setMnemonic('F');
         fileJMenu.setText("File");
+
+        clearJMenuItem.setText("Clear");
+        fileJMenu.add(clearJMenuItem);
+
+        printJMenuItem.setText("Print");
+        fileJMenu.add(printJMenuItem);
+
+        closeJMenuItem.setText("Close");
+        fileJMenu.add(closeJMenuItem);
+
         mainJMenuBar.add(fileJMenu);
 
         helpJMenu.setText("Help");
+
+        instJMenuItem.setText("Instructions");
+        helpJMenu.add(instJMenuItem);
+
+        aboutJMenuItem.setText("About");
+        helpJMenu.add(aboutJMenuItem);
+
         mainJMenuBar.add(helpJMenu);
 
         setJMenuBar(mainJMenuBar);
@@ -222,7 +255,7 @@ public class Project1 extends javax.swing.JFrame
                         .addComponent(clrJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(quitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(printJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
@@ -245,19 +278,19 @@ public class Project1 extends javax.swing.JFrame
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(inputJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(balanceJLabel)
                     .addComponent(balanceJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalJLabel)
-                    .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(interestJLabel)
-                    .addComponent(interestJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalJLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(interestJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(interestJLabel))
+                .addGap(1, 1, 1)
                 .addComponent(errorJLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calcJButton)
@@ -322,7 +355,7 @@ public class Project1 extends javax.swing.JFrame
             */
         } catch (NumberFormatException exp)
         {
-            JOptionPane.showMessageDialog(null, "Please enter a positive number for all required fields", "Input Error", JOptionPane.ERROR_MESSAGE);
+            errorJLabel.setText("Please enter a positive number for all required fields");
 
             //amountJTextField.requestFocus();
             //amountJTextField.selectAll();
@@ -344,6 +377,8 @@ public class Project1 extends javax.swing.JFrame
 
     private void callDefaults()
     {
+        //Clears and resets all fields to default values
+        //Used on instantiation and when user calls clear function
         paymentJTextField.setText("");
         rateJSpinner.setValue(0);
         nJTextField.setText("");
@@ -356,6 +391,7 @@ public class Project1 extends javax.swing.JFrame
         rateJSpinner.setValue(0);
         nJTextField.setText("");
         yearsJTextField.setText("2");
+        errorJLabel.setText("");
         balanceJTextField.setText("$0.00");
         totalJTextField.setText("$0.00");
         interestJTextField.setText("$0.00");
@@ -409,15 +445,19 @@ public class Project1 extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutJMenuItem;
     private javax.swing.JLabel balanceJLabel;
     private javax.swing.JTextField balanceJTextField;
     private javax.swing.JButton calcJButton;
+    private javax.swing.JMenuItem clearJMenuItem;
+    private javax.swing.JMenuItem closeJMenuItem;
     private javax.swing.JButton clrJButton;
     private javax.swing.JLabel errorJLabel;
     private javax.swing.JMenu fileJMenu;
     private javax.swing.JMenu helpJMenu;
     private javax.swing.JLabel imageJLabel;
     private javax.swing.JPanel inputJPanel;
+    private javax.swing.JMenuItem instJMenuItem;
     private javax.swing.JLabel interestJLabel;
     private javax.swing.JTextField interestJTextField;
     private javax.swing.JMenuBar mainJMenuBar;
@@ -426,6 +466,7 @@ public class Project1 extends javax.swing.JFrame
     private javax.swing.JLabel paymentJLabel;
     private javax.swing.JTextField paymentJTextField;
     private javax.swing.JButton printJButton;
+    private javax.swing.JMenuItem printJMenuItem;
     private javax.swing.JButton quitJButton;
     private javax.swing.JLabel rateJLabel;
     private javax.swing.JSpinner rateJSpinner;
