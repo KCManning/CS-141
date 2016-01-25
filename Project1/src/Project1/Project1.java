@@ -1,5 +1,6 @@
 package Project1;
 
+import java.awt.Toolkit;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
@@ -21,6 +22,13 @@ public class Project1 extends javax.swing.JFrame
     public Project1()
     {
         initComponents();
+        //set location of window
+        this.setLocationRelativeTo(null);
+        //set default button
+        this.getRootPane().setDefaultButton(calcJButton);
+        //set icon
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/Project1/house.png"));
+        //Sets form to default values and sets focus
         callDefaults();
     }
 
@@ -318,20 +326,22 @@ public class Project1 extends javax.swing.JFrame
     private void calcJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calcJButtonActionPerformed
     {//GEN-HEADEREND:event_calcJButtonActionPerformed
         try
-        { /*
-            // Calculate the Loan Payment
+        {
+            // Calculate the annuity
             //Declare variables & assign
-            final int months = 12, percentConverter = 100;
-
             DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
-
-            double loanAmount = Double.parseDouble(amountJTextField.getText());
-            double rate = Double.parseDouble(rateJTextField.getText()) / percentConverter;
-            double years = Double.parseDouble(yearsJTextField.getText());
-
-            double payment = 0f;
-            double interest = 0f;
-            boolean invalidInputs = (loanAmount <= 0 || loanAmount > 1000000000 || rate < 0 || rate > 100 || years < 0 || years > 100);
+            AnnuityStorage annuity = new AnnuityStorage(
+                    Double.parseDouble(paymentJTextField.getText()),
+                    (Integer) rateJSpinner.getValue(),
+                    Integer.parseInt(nJTextField.getText()),
+                    Integer.parseInt(yearsJTextField.getText())
+            );
+            boolean invalidInputs = (annuity.getDblPayment() <= 0 
+                    || annuity.getDblPayment() > 1000000000 
+                    || annuity.getDblRate() < 0 || annuity.getDblRate() > 100
+                    || annuity.getIntN() < 0 || annuity.getIntN() > 1000
+                    || annuity.getIntYears() < 0 || annuity.getIntYears() > 100
+                    );
 
             if (invalidInputs)
             {
@@ -340,19 +350,10 @@ public class Project1 extends javax.swing.JFrame
 
             //Input
             //Processing
-            double top = 0.0, bottom = 0.0, monthlyInterestRate = rate / months;
-            top = loanAmount * monthlyInterestRate;
-            bottom = 1 - Math.pow((1 + monthlyInterestRate), (years * -months));
+           //Output
+           // paymentJTextField.setText(twoDecimal.format(payment));
+          //  interestJTextField.setText(twoDecimal.format(interest));
 
-            payment = top / bottom;
-            interest = payment * months * years - loanAmount;
-            counter++;
-
-            //Output
-            counterJTextField.setText(String.valueOf(counter));
-            paymentJTextField.setText(twoDecimal.format(payment));
-            interestJTextField.setText(twoDecimal.format(interest));
-            */
         } catch (NumberFormatException exp)
         {
             errorJLabel.setText("Please enter a positive number for all required fields");
@@ -381,17 +382,8 @@ public class Project1 extends javax.swing.JFrame
         //Used on instantiation and when user calls clear function
         paymentJTextField.setText("");
         rateJSpinner.setValue(0);
-        nJTextField.setText("");
-        yearsJTextField.setText("2");
-        balanceJTextField.setText("$0.00");
-        totalJTextField.setText("$0.00");
-        interestJTextField.setText("$0.00");
-        paymentJTextField.requestFocus();
-        paymentJTextField.setText("");
-        rateJSpinner.setValue(0);
-        nJTextField.setText("");
-        yearsJTextField.setText("2");
-        errorJLabel.setText("");
+        nJTextField.setText("2");
+        yearsJTextField.setText("");
         balanceJTextField.setText("$0.00");
         totalJTextField.setText("$0.00");
         interestJTextField.setText("$0.00");
