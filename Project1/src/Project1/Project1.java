@@ -5,15 +5,13 @@ import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
 
 /**
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * Class: Project1
- * File: Project1.java 
- * Description: GUI interface for Annuity calculator
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Class:
+ * Project1 File: Project1.java Description: GUI interface for Annuity
+ * calculator
  *
- * @author: Kevin Manning
- * Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+ * @author: Kevin Manning Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
  * Date: 1/25/2016
- * @version 1.0 History Log: 1/25/16 - Built base class structure
+ * @version 1.0 History Log: 1/25/16 - Interface and Methods created
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 public class Project1 extends javax.swing.JFrame
@@ -78,6 +76,7 @@ public class Project1 extends javax.swing.JFrame
         aboutJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Project 1 (01/26/16)");
         setResizable(false);
 
         inputJPanel.setBackground(new java.awt.Color(102, 204, 255));
@@ -162,6 +161,7 @@ public class Project1 extends javax.swing.JFrame
 
         balanceJTextField.setEditable(false);
         balanceJTextField.setBackground(new java.awt.Color(255, 255, 255));
+        balanceJTextField.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         balanceJTextField.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -176,6 +176,7 @@ public class Project1 extends javax.swing.JFrame
 
         totalJTextField.setEditable(false);
         totalJTextField.setBackground(new java.awt.Color(255, 255, 255));
+        totalJTextField.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
 
         interestJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         interestJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -183,6 +184,7 @@ public class Project1 extends javax.swing.JFrame
 
         interestJTextField.setEditable(false);
         interestJTextField.setBackground(new java.awt.Color(255, 255, 255));
+        interestJTextField.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
 
         errorJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         errorJLabel.setForeground(new java.awt.Color(255, 51, 51));
@@ -217,7 +219,6 @@ public class Project1 extends javax.swing.JFrame
         printJButton.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
         printJButton.setMnemonic('P');
         printJButton.setText("Print");
-        printJButton.setEnabled(false);
         printJButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -241,6 +242,7 @@ public class Project1 extends javax.swing.JFrame
         fileJMenu.setMnemonic('F');
         fileJMenu.setText("File");
 
+        clearJMenuItem.setMnemonic('r');
         clearJMenuItem.setText("Clear");
         clearJMenuItem.addActionListener(new java.awt.event.ActionListener()
         {
@@ -251,10 +253,19 @@ public class Project1 extends javax.swing.JFrame
         });
         fileJMenu.add(clearJMenuItem);
 
+        printJMenuItem.setMnemonic('P');
         printJMenuItem.setText("Print");
+        printJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(printJMenuItem);
 
-        closeJMenuItem.setText("Close");
+        closeJMenuItem.setMnemonic('Q');
+        closeJMenuItem.setText("Quit");
         closeJMenuItem.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -266,12 +277,21 @@ public class Project1 extends javax.swing.JFrame
 
         mainJMenuBar.add(fileJMenu);
 
-        helpJMenu.setMnemonic('p');
+        helpJMenu.setMnemonic('H');
         helpJMenu.setText("Help");
 
+        instJMenuItem.setMnemonic('I');
         instJMenuItem.setText("Instructions");
+        instJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                instJMenuItemActionPerformed(evt);
+            }
+        });
         helpJMenu.add(instJMenuItem);
 
+        aboutJMenuItem.setMnemonic('A');
         aboutJMenuItem.setText("About");
         aboutJMenuItem.addActionListener(new java.awt.event.ActionListener()
         {
@@ -363,19 +383,22 @@ public class Project1 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_calcJButtonActionPerformed
         try
         {
-            // Calculate the annuity
-            //Declare variables & assign
+            //Formatter for currency display
             DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
+
+            //Calculate the annuity through object
             AnnuityStorage annuity = new AnnuityStorage(
                     Double.parseDouble(paymentJTextField.getText()),
                     (Double) rateJSpinner.getValue(),
                     Integer.parseInt(nJTextField.getText()),
                     Integer.parseInt(yearsJTextField.getText())
             );
+
+            //Verifies inputs for valitidity
             boolean invalidInputs = (annuity.getDblPayment() <= 0
                     || annuity.getDblPayment() > 1000000000
                     || annuity.getDblRate() < 0 || annuity.getDblRate() > 100
-                    || annuity.getIntN() < 0 || annuity.getIntN() > 1000
+                    || annuity.getIntN() < 0 || annuity.getIntN() > 365
                     || annuity.getIntYears() < 0 || annuity.getIntYears() > 100);
 
             if (invalidInputs)
@@ -383,8 +406,9 @@ public class Project1 extends javax.swing.JFrame
                 throw new NumberFormatException();
             }
 
-            //Input
-            //Processing
+            //Resets warning label if no exception is thrown
+            errorJLabel.setText("");
+
             //Output
             balanceJTextField.setText(twoDecimal.format(annuity.getDblBalance()));
             interestJTextField.setText(twoDecimal.format(annuity.getDblInterest()));
@@ -392,6 +416,7 @@ public class Project1 extends javax.swing.JFrame
 
         } catch (NumberFormatException exp)
         {
+            //Handles thrown exception
             errorJLabel.setText(
                     "Please enter a positive number for all required fields");
 
@@ -417,7 +442,6 @@ public class Project1 extends javax.swing.JFrame
     {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
         // Clear All Fields and Resets Form
         callDefaults();
-
     }//GEN-LAST:event_clearJMenuItemActionPerformed
 
     private void closeJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_closeJMenuItemActionPerformed
@@ -428,11 +452,13 @@ public class Project1 extends javax.swing.JFrame
 
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
     {//GEN-HEADEREND:event_printJButtonActionPerformed
-        // TODO add your handling code here:
+        //Prints the entire user interface
+        PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJButtonActionPerformed
 
     private void aboutJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutJMenuItemActionPerformed
     {//GEN-HEADEREND:event_aboutJMenuItemActionPerformed
+        //A message with generic information regarding the program
         JOptionPane.showMessageDialog(null,
                 "The Future Annuitites Calculator (Project1) was created by "
                 + "Kevin Manning in January, 2016,\nin accordance with guidelines"
@@ -446,6 +472,30 @@ public class Project1 extends javax.swing.JFrame
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_aboutJMenuItemActionPerformed
 
+    private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_printJMenuItemActionPerformed
+        //Prints the entire user interface
+        PrintUtilities.printComponent(this);
+    }//GEN-LAST:event_printJMenuItemActionPerformed
+
+    private void instJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_instJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_instJMenuItemActionPerformed
+        //Popup window for instuctions on using program        
+        JOptionPane.showMessageDialog(null,
+                "To use the program, please enter the following pieces of "
+                        +"information into the provided fields:"
+                        +"\n    Amount of Payments (Must be a positive number)."
+                        +"\n    Interst rate (Spinner increments at half a percent;"
+                        +" custom values are allowed)."
+                        +"\n    Number of Compoundings per year (maximum of 365, "
+                        +"which is daily value)."
+                        +"\n    The Number of years you'll be investing for."
+                        +"\n\nThen press the Calculate Button (or \"Enter\") to"
+                        +" calculate final amounts.",
+                "Instructions",
+                JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_instJMenuItemActionPerformed
+
     private void callDefaults()
     {
         //Clears and resets all fields to default values
@@ -454,6 +504,7 @@ public class Project1 extends javax.swing.JFrame
         rateJSpinner.setValue(8.0);
         nJTextField.setText("2");
         yearsJTextField.setText("");
+        errorJLabel.setText("");
         balanceJTextField.setText("$0.00");
         totalJTextField.setText("$0.00");
         interestJTextField.setText("$0.00");
