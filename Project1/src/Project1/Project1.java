@@ -393,13 +393,21 @@ public class Project1 extends javax.swing.JFrame
                     Integer.parseInt(nJTextField.getText()),
                     Integer.parseInt(yearsJTextField.getText())
             );
+            
+            final short ZERO = 0;
+            final double MAX_PAYMENT = 1000000000.0;
+            final short MAX_YEARS_RATE = 100;
+            final short DAYS_IN_YEAR = 365;
 
             //Verifies inputs for valitidity
-            boolean invalidInputs = (annuity.getDblPayment() <= 0
-                    || annuity.getDblPayment() > 1000000000
-                    || annuity.getDblRate() < 0 || annuity.getDblRate() > 100
-                    || annuity.getIntN() < 0 || annuity.getIntN() > 365
-                    || annuity.getIntYears() < 0 || annuity.getIntYears() > 100);
+            boolean invalidInputs = (annuity.getDblPayment() <= ZERO
+                    || annuity.getDblPayment() > MAX_PAYMENT
+                    || annuity.getDblRate() < ZERO 
+                    || annuity.getDblRate() > MAX_YEARS_RATE
+                    || annuity.getIntN() < ZERO 
+                    || annuity.getIntN() > DAYS_IN_YEAR
+                    || annuity.getIntYears() < ZERO 
+                    || annuity.getIntYears() > MAX_YEARS_RATE);
 
             if (invalidInputs)
             {

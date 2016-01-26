@@ -32,8 +32,9 @@ public class AnnuityStorage
     //Constructor for class, fills and calculates all values in class
     public AnnuityStorage(double dblPayment, double dblRate, int intN, int intYears)
     {
+        final short PERCENT = 100;
         this.dblPayment = dblPayment;
-        this.dblRate = dblRate / 100.0;
+        this.dblRate = dblRate / PERCENT;
         this.intN = intN;
         this.intYears = intYears;
 
@@ -58,10 +59,11 @@ public class AnnuityStorage
     //Calcualtes the balance after a given time
     private void setDblBalance()
     {
+        final short BASE_VALUE = 1;
         double dblPeriodicRate = dblRate / intN;
         this.dblBalance = dblPayment
-                * ((Math.pow((1 + dblPeriodicRate), (intN * intYears)) - 1)
-                / dblPeriodicRate);
+                * ((Math.pow((BASE_VALUE + dblPeriodicRate), (intN * intYears))
+                - BASE_VALUE) / dblPeriodicRate);
     }
 
     //Calculates how much was made in base payments
