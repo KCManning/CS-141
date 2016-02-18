@@ -5,6 +5,8 @@
  */
 package project.two;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Kevin
@@ -30,38 +32,456 @@ public class OrcaGUI extends javax.swing.JFrame
     private void initComponents()
     {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        roomsGroup = new javax.swing.ButtonGroup();
+        logoJLabel = new javax.swing.JLabel();
+        companyJLabel = new javax.swing.JLabel();
+        dateJLabel = new javax.swing.JLabel();
+        dateJTextField = new javax.swing.JTextField();
+        timeJLabel = new javax.swing.JLabel();
+        timeJTextField = new javax.swing.JTextField();
+        infoJPanel = new javax.swing.JPanel();
+        customerJLabel = new javax.swing.JLabel();
+        customerJComboBox = new javax.swing.JComboBox<>();
+        roomJPanel = new javax.swing.JPanel();
+        nightsJLabel = new javax.swing.JLabel();
+        nightsJSpinner = new javax.swing.JSpinner();
+        paradiseJRadioButton = new javax.swing.JRadioButton();
+        atlantisJRadioButton = new javax.swing.JRadioButton();
+        orcasJRadioButton = new javax.swing.JRadioButton();
+        managerJCheckBox = new javax.swing.JCheckBox();
+        chargesJPanel = new javax.swing.JPanel();
+        mealsJLabel = new javax.swing.JLabel();
+        mealsJTextField = new javax.swing.JTextField();
+        wifiJLabel = new javax.swing.JLabel();
+        wifiJTextField = new javax.swing.JTextField();
+        miscJLabel = new javax.swing.JLabel();
+        miscJTextField = new javax.swing.JTextField();
+        calculateJButton = new javax.swing.JButton();
+        clearJButton = new javax.swing.JButton();
+        printJButton = new javax.swing.JButton();
+        exitJButton = new javax.swing.JButton();
+        receiptJScrollPane = new javax.swing.JScrollPane();
+        receiptJTextArea = new javax.swing.JTextArea();
+        mainJMenuBar = new javax.swing.JMenuBar();
+        fileJMenu = new javax.swing.JMenu();
+        newCustJMenuItem = new javax.swing.JMenuItem();
+        printJMenuItem = new javax.swing.JMenuItem();
+        exitJMenuItem = new javax.swing.JMenuItem();
+        roomsJMenu = new javax.swing.JMenu();
+        paradiseJMenuItem = new javax.swing.JMenuItem();
+        atlantisJMenuItem = new javax.swing.JMenuItem();
+        orcasJMenuItem = new javax.swing.JMenuItem();
+        helpJMenu = new javax.swing.JMenu();
+        instructionsJMenuItem = new javax.swing.JMenuItem();
+        aboutJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Orcas B&B POS");
+        setResizable(false);
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        logoJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Island Image Icon 2.jpg"))); // NOI18N
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        companyJLabel.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
+        companyJLabel.setText("Orcas B&B");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        dateJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        dateJLabel.setText("Date:");
+        dateJLabel.setToolTipText("Today's Date");
 
-        setJMenuBar(jMenuBar1);
+        dateJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        dateJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        dateJTextField.setToolTipText("Today's Date");
+        dateJTextField.setEnabled(false);
+
+        timeJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        timeJLabel.setText("Time:");
+        timeJLabel.setToolTipText("Time Transaction Began");
+
+        timeJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        timeJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        timeJTextField.setToolTipText("Time Transaction Began");
+        timeJTextField.setEnabled(false);
+
+        infoJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Information"));
+        infoJPanel.setToolTipText("");
+
+        customerJLabel.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        customerJLabel.setText("Customer:");
+        customerJLabel.setToolTipText("Please Select a Customer from the list");
+
+        customerJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        customerJComboBox.setToolTipText("Please Select a Customer from the list");
+
+        javax.swing.GroupLayout infoJPanelLayout = new javax.swing.GroupLayout(infoJPanel);
+        infoJPanel.setLayout(infoJPanelLayout);
+        infoJPanelLayout.setHorizontalGroup(
+            infoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoJPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(customerJLabel)
+                .addGap(18, 18, 18)
+                .addComponent(customerJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45))
+        );
+        infoJPanelLayout.setVerticalGroup(
+            infoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(infoJPanelLayout.createSequentialGroup()
+                .addGroup(infoJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(customerJLabel)
+                    .addComponent(customerJComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        roomJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Room Information"));
+        roomJPanel.setToolTipText("Costs for the room itself");
+
+        nightsJLabel.setDisplayedMnemonic('N');
+        nightsJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nightsJLabel.setText("Nights:");
+        nightsJLabel.setToolTipText("How many night was the customer with us?");
+
+        nightsJSpinner.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        nightsJSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 14, 1));
+        nightsJSpinner.setToolTipText("How many night was the customer with us?");
+
+        roomsGroup.add(paradiseJRadioButton);
+        paradiseJRadioButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        paradiseJRadioButton.setMnemonic('e');
+        paradiseJRadioButton.setText("Paradise");
+        paradiseJRadioButton.setToolTipText("$135 a night; 2 double beds, 1/2 bath, partial view");
+
+        roomsGroup.add(atlantisJRadioButton);
+        atlantisJRadioButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        atlantisJRadioButton.setMnemonic('t');
+        atlantisJRadioButton.setText("Atlantis");
+        atlantisJRadioButton.setToolTipText("$185 a night; 2 queen beds, 1/2 bath, partial view");
+
+        roomsGroup.add(orcasJRadioButton);
+        orcasJRadioButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        orcasJRadioButton.setMnemonic('O');
+        orcasJRadioButton.setText("Orcas");
+        orcasJRadioButton.setToolTipText("$235 a night; 1 king size bed, full bath, wrap around balcony, full ocean view");
+
+        managerJCheckBox.setText("Manager's Special Discount");
+        managerJCheckBox.setToolTipText("A special 10% discount on room charges, to be applied by Managers ONLY");
+
+        javax.swing.GroupLayout roomJPanelLayout = new javax.swing.GroupLayout(roomJPanel);
+        roomJPanel.setLayout(roomJPanelLayout);
+        roomJPanelLayout.setHorizontalGroup(
+            roomJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roomJPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nightsJLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nightsJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
+            .addGroup(roomJPanelLayout.createSequentialGroup()
+                .addGroup(roomJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roomJPanelLayout.createSequentialGroup()
+                        .addComponent(paradiseJRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(atlantisJRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(orcasJRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roomJPanelLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(managerJCheckBox)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        roomJPanelLayout.setVerticalGroup(
+            roomJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roomJPanelLayout.createSequentialGroup()
+                .addGroup(roomJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nightsJLabel)
+                    .addComponent(nightsJSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(roomJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(paradiseJRadioButton)
+                    .addComponent(atlantisJRadioButton)
+                    .addComponent(orcasJRadioButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(managerJCheckBox)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        chargesJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Additional Charges"));
+        chargesJPanel.setToolTipText("Various expenses");
+
+        mealsJLabel.setDisplayedMnemonic('S');
+        mealsJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        mealsJLabel.setText("Special Meals:");
+        mealsJLabel.setToolTipText("Charges for custom orders (including room service)");
+
+        mealsJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        mealsJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        mealsJTextField.setToolTipText("Charges for custom orders (including room service)");
+
+        wifiJLabel.setDisplayedMnemonic('I');
+        wifiJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        wifiJLabel.setText("Internet Wi-Fi:");
+        wifiJLabel.setToolTipText("Charges for Wi-Fi usage");
+
+        wifiJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        wifiJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        wifiJTextField.setToolTipText("Charges for Wi-Fi usage");
+
+        miscJLabel.setDisplayedMnemonic('M');
+        miscJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        miscJLabel.setText("Miscellaneous:");
+        miscJLabel.setToolTipText("Uncategorized charges");
+
+        miscJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        miscJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        miscJTextField.setToolTipText("Uncategorized charges");
+
+        javax.swing.GroupLayout chargesJPanelLayout = new javax.swing.GroupLayout(chargesJPanel);
+        chargesJPanel.setLayout(chargesJPanelLayout);
+        chargesJPanelLayout.setHorizontalGroup(
+            chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chargesJPanelLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(mealsJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(wifiJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(miscJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(wifiJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(mealsJTextField)
+                    .addComponent(miscJTextField))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        chargesJPanelLayout.setVerticalGroup(
+            chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(chargesJPanelLayout.createSequentialGroup()
+                .addGroup(chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mealsJLabel)
+                    .addComponent(mealsJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(wifiJLabel)
+                    .addComponent(wifiJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(chargesJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(miscJLabel)
+                    .addComponent(miscJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        calculateJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        calculateJButton.setMnemonic('l');
+        calculateJButton.setText("Calculate");
+        calculateJButton.setToolTipText("Tally Room costs and other charges into an itemized bill");
+        calculateJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                calculateJButtonActionPerformed(evt);
+            }
+        });
+
+        clearJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        clearJButton.setMnemonic('C');
+        clearJButton.setText("Clear");
+        clearJButton.setToolTipText("Resets the form for a new use");
+
+        printJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        printJButton.setMnemonic('P');
+        printJButton.setText("Print");
+        printJButton.setToolTipText("Print the customer's receipt");
+        printJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJButtonActionPerformed(evt);
+            }
+        });
+
+        exitJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        exitJButton.setMnemonic('x');
+        exitJButton.setText("Exit");
+        exitJButton.setToolTipText("Close this window");
+        exitJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                exitJButtonActionPerformed(evt);
+            }
+        });
+
+        receiptJTextArea.setEditable(false);
+        receiptJTextArea.setColumns(20);
+        receiptJTextArea.setRows(5);
+        receiptJTextArea.setText("asd\nopi\n\nsfsdf\n\n~~~~~~~~~\n\nasdada");
+        receiptJTextArea.setToolTipText("Customer Receipt");
+        receiptJTextArea.setAutoscrolls(false);
+        receiptJScrollPane.setViewportView(receiptJTextArea);
+
+        fileJMenu.setMnemonic('F');
+        fileJMenu.setText("File");
+
+        newCustJMenuItem.setMnemonic('A');
+        newCustJMenuItem.setText("Add New Customer");
+        newCustJMenuItem.setToolTipText("Add a new customer to the potential guest list");
+        fileJMenu.add(newCustJMenuItem);
+
+        printJMenuItem.setText("Print");
+        printJMenuItem.setToolTipText("Print the customer's receipt");
+        printJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJMenuItemActionPerformed(evt);
+            }
+        });
+        fileJMenu.add(printJMenuItem);
+
+        exitJMenuItem.setText("Exit");
+        exitJMenuItem.setToolTipText("Close this window");
+        exitJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                exitJMenuItemActionPerformed(evt);
+            }
+        });
+        fileJMenu.add(exitJMenuItem);
+
+        mainJMenuBar.add(fileJMenu);
+
+        roomsJMenu.setMnemonic('R');
+        roomsJMenu.setText("Rooms");
+
+        paradiseJMenuItem.setText("Paradise");
+        paradiseJMenuItem.setToolTipText("$135 a night; 2 double beds, 1/2 bath, partial view");
+        roomsJMenu.add(paradiseJMenuItem);
+
+        atlantisJMenuItem.setText("Atlantis");
+        atlantisJMenuItem.setToolTipText("$185 a night; 2 queen beds, 1/2 bath, partial view");
+        roomsJMenu.add(atlantisJMenuItem);
+
+        orcasJMenuItem.setText("Orcas");
+        orcasJMenuItem.setToolTipText("$235 a night; 1 king size bed, full bath, wrap around balcony, full ocean view");
+        roomsJMenu.add(orcasJMenuItem);
+
+        mainJMenuBar.add(roomsJMenu);
+
+        helpJMenu.setMnemonic('H');
+        helpJMenu.setText("Help");
+
+        instructionsJMenuItem.setText("Instructions");
+        helpJMenu.add(instructionsJMenuItem);
+
+        aboutJMenuItem.setText("About Orcas B&B POS");
+        helpJMenu.add(aboutJMenuItem);
+
+        mainJMenuBar.add(helpJMenu);
+
+        setJMenuBar(mainJMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(logoJLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(companyJLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(timeJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(timeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(dateJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dateJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(infoJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(roomJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(chargesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(receiptJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(calculateJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(clearJButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(printJButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(exitJButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(companyJLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(dateJLabel)
+                                    .addComponent(dateJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(timeJLabel)
+                                    .addComponent(timeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(infoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(logoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(roomJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(chargesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(calculateJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clearJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(printJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receiptJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
+    {//GEN-HEADEREND:event_calculateJButtonActionPerformed
+        new OrcaGUI().setVisible(true);
+    }//GEN-LAST:event_calculateJButtonActionPerformed
+
+    private void exitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJButtonActionPerformed
+    {//GEN-HEADEREND:event_exitJButtonActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_exitJButtonActionPerformed
+
+    private void exitJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_exitJMenuItemActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_exitJMenuItemActionPerformed
+
+    private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_printJMenuItemActionPerformed
+       PrintUtilities.printComponent(this);
+    }//GEN-LAST:event_printJMenuItemActionPerformed
+
+    private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
+    {//GEN-HEADEREND:event_printJButtonActionPerformed
+        PrintUtilities.printComponent(receiptJTextArea);
+    }//GEN-LAST:event_printJButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,9 +529,47 @@ public class OrcaGUI extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JMenuItem aboutJMenuItem;
+    private javax.swing.JMenuItem atlantisJMenuItem;
+    private javax.swing.JRadioButton atlantisJRadioButton;
+    private javax.swing.JButton calculateJButton;
+    private javax.swing.JPanel chargesJPanel;
+    private javax.swing.JButton clearJButton;
+    private javax.swing.JLabel companyJLabel;
+    private javax.swing.JComboBox<String> customerJComboBox;
+    private javax.swing.JLabel customerJLabel;
+    private javax.swing.JLabel dateJLabel;
+    private javax.swing.JTextField dateJTextField;
+    private javax.swing.JButton exitJButton;
+    private javax.swing.JMenuItem exitJMenuItem;
+    private javax.swing.JMenu fileJMenu;
+    private javax.swing.JMenu helpJMenu;
+    private javax.swing.JPanel infoJPanel;
+    private javax.swing.JMenuItem instructionsJMenuItem;
+    private javax.swing.JLabel logoJLabel;
+    private javax.swing.JMenuBar mainJMenuBar;
+    private javax.swing.JCheckBox managerJCheckBox;
+    private javax.swing.JLabel mealsJLabel;
+    private javax.swing.JTextField mealsJTextField;
+    private javax.swing.JLabel miscJLabel;
+    private javax.swing.JTextField miscJTextField;
+    private javax.swing.JMenuItem newCustJMenuItem;
+    private javax.swing.JLabel nightsJLabel;
+    private javax.swing.JSpinner nightsJSpinner;
+    private javax.swing.JMenuItem orcasJMenuItem;
+    private javax.swing.JRadioButton orcasJRadioButton;
+    private javax.swing.JMenuItem paradiseJMenuItem;
+    private javax.swing.JRadioButton paradiseJRadioButton;
+    private javax.swing.JButton printJButton;
+    private javax.swing.JMenuItem printJMenuItem;
+    private javax.swing.JScrollPane receiptJScrollPane;
+    private javax.swing.JTextArea receiptJTextArea;
+    private javax.swing.JPanel roomJPanel;
+    private javax.swing.ButtonGroup roomsGroup;
+    private javax.swing.JMenu roomsJMenu;
+    private javax.swing.JLabel timeJLabel;
+    private javax.swing.JTextField timeJTextField;
+    private javax.swing.JLabel wifiJLabel;
+    private javax.swing.JTextField wifiJTextField;
     // End of variables declaration//GEN-END:variables
 }
