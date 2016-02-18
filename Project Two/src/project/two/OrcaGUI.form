@@ -18,11 +18,14 @@
                 <Property name="text" type="java.lang.String" value="Add New Customer"/>
                 <Property name="toolTipText" type="java.lang.String" value="Add a new customer to the potential guest list"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newCustJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="printJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print"/>
-                <Property name="toolTipText" type="java.lang.String" value="Print the customer&apos;s receipt"/>
+                <Property name="toolTipText" type="java.lang.String" value="Prints the entire window"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printJMenuItemActionPerformed"/>
@@ -583,6 +586,9 @@
         <Property name="text" type="java.lang.String" value="Clear"/>
         <Property name="toolTipText" type="java.lang.String" value="Resets the form for a new use"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearJButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="printJButton">
       <Properties>
@@ -622,7 +628,6 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="asd&#xa;opi&#xa;&#xa;sfsdf&#xa;&#xa;~~~~~~~~~&#xa;&#xa;asdada"/>
             <Property name="toolTipText" type="java.lang.String" value="Customer Receipt"/>
             <Property name="autoscrolls" type="boolean" value="false"/>
           </Properties>

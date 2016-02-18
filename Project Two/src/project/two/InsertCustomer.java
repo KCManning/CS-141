@@ -30,21 +30,214 @@ public class InsertCustomer extends javax.swing.JFrame
     private void initComponents()
     {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        fNameJLabel = new javax.swing.JLabel();
+        fNameJTextField = new javax.swing.JTextField();
+        lNameJLabel = new javax.swing.JLabel();
+        lNameJTextField = new javax.swing.JTextField();
+        roomJLabel = new javax.swing.JLabel();
+        roomJTextField = new javax.swing.JTextField();
+        saveJButton = new javax.swing.JButton();
+        printJButton = new javax.swing.JButton();
+        clearJButton = new javax.swing.JButton();
+        quitJButton = new javax.swing.JButton();
+        custJMenuBar = new javax.swing.JMenuBar();
+        fileJMenu = new javax.swing.JMenu();
+        saveJMenuItem = new javax.swing.JMenuItem();
+        printJMenuItem = new javax.swing.JMenuItem();
+        clearJMenuItem = new javax.swing.JMenuItem();
+        quitJMenuItem = new javax.swing.JMenuItem();
+        helpJMenu = new javax.swing.JMenu();
+        insructionsJMenuItem = new javax.swing.JMenuItem();
+        aboutJMenuItem = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Customer Input");
+        setAlwaysOnTop(true);
+        setResizable(false);
+
+        fNameJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        fNameJLabel.setText("First Name:");
+        fNameJLabel.setToolTipText("Customer's First Name");
+
+        fNameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        fNameJTextField.setToolTipText("Customer's First Name");
+
+        lNameJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lNameJLabel.setText("Last Name:");
+        lNameJLabel.setToolTipText("Customer's Last Name");
+
+        lNameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        lNameJTextField.setToolTipText("Customer's Last Name");
+
+        roomJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        roomJLabel.setText("Room Number:");
+        roomJLabel.setToolTipText("Customer's Room Number");
+
+        roomJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        roomJTextField.setToolTipText("Customer's Room Number");
+
+        saveJButton.setMnemonic('S');
+        saveJButton.setText("Save");
+        saveJButton.setToolTipText("Saves the customer");
+
+        printJButton.setMnemonic('P');
+        printJButton.setText("Print");
+        printJButton.setToolTipText("Prints the customer information");
+        printJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJButtonActionPerformed(evt);
+            }
+        });
+
+        clearJButton.setMnemonic('C');
+        clearJButton.setText("Clear");
+        clearJButton.setToolTipText("Resets the form");
+
+        quitJButton.setMnemonic('Q');
+        quitJButton.setText("Quit");
+        quitJButton.setToolTipText("Closes this window without saving");
+        quitJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                quitJButtonActionPerformed(evt);
+            }
+        });
+
+        fileJMenu.setMnemonic('F');
+        fileJMenu.setText("File");
+        fileJMenu.setToolTipText("Additional Options");
+
+        saveJMenuItem.setMnemonic('v');
+        saveJMenuItem.setText("Save");
+        saveJMenuItem.setToolTipText("Saves the customer");
+        fileJMenu.add(saveJMenuItem);
+
+        printJMenuItem.setMnemonic('r');
+        printJMenuItem.setText("Print");
+        printJMenuItem.setToolTipText("Prints this entire window");
+        printJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJMenuItemActionPerformed(evt);
+            }
+        });
+        fileJMenu.add(printJMenuItem);
+
+        clearJMenuItem.setMnemonic('l');
+        clearJMenuItem.setText("Clear");
+        clearJMenuItem.setToolTipText("Resets the form");
+        fileJMenu.add(clearJMenuItem);
+
+        quitJMenuItem.setMnemonic('u');
+        quitJMenuItem.setText("Quit");
+        quitJMenuItem.setToolTipText("Closes this window without saving");
+        quitJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                quitJMenuItemActionPerformed(evt);
+            }
+        });
+        fileJMenu.add(quitJMenuItem);
+
+        custJMenuBar.add(fileJMenu);
+
+        helpJMenu.setMnemonic('H');
+        helpJMenu.setText("Help");
+        helpJMenu.setToolTipText("Information about the program and creators");
+
+        insructionsJMenuItem.setMnemonic('I');
+        insructionsJMenuItem.setText("Instructions");
+        insructionsJMenuItem.setToolTipText("Clarifying information about how to use this software");
+        helpJMenu.add(insructionsJMenuItem);
+
+        aboutJMenuItem.setMnemonic('t');
+        aboutJMenuItem.setText("About");
+        aboutJMenuItem.setToolTipText("Informnation about this software and its creators");
+        helpJMenu.add(aboutJMenuItem);
+
+        custJMenuBar.add(helpJMenu);
+
+        setJMenuBar(custJMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(saveJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(printJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clearJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quitJButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lNameJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(roomJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fNameJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lNameJTextField)
+                            .addComponent(roomJTextField)
+                            .addComponent(fNameJTextField))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fNameJLabel)
+                    .addComponent(fNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNameJLabel)
+                    .addComponent(lNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(roomJLabel)
+                    .addComponent(roomJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clearJButton)
+                    .addComponent(saveJButton)
+                    .addComponent(printJButton)
+                    .addComponent(quitJButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void quitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJButtonActionPerformed
+    {//GEN-HEADEREND:event_quitJButtonActionPerformed
+        dispose();
+    }//GEN-LAST:event_quitJButtonActionPerformed
+
+    private void quitJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_quitJMenuItemActionPerformed
+        dispose();
+    }//GEN-LAST:event_quitJMenuItemActionPerformed
+
+    private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
+    {//GEN-HEADEREND:event_printJButtonActionPerformed
+        
+    }//GEN-LAST:event_printJButtonActionPerformed
+
+    private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_printJMenuItemActionPerformed
+        PrintUtilities.printComponent(this);
+    }//GEN-LAST:event_printJMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -92,5 +285,24 @@ public class InsertCustomer extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutJMenuItem;
+    private javax.swing.JButton clearJButton;
+    private javax.swing.JMenuItem clearJMenuItem;
+    private javax.swing.JMenuBar custJMenuBar;
+    private javax.swing.JLabel fNameJLabel;
+    private javax.swing.JTextField fNameJTextField;
+    private javax.swing.JMenu fileJMenu;
+    private javax.swing.JMenu helpJMenu;
+    private javax.swing.JMenuItem insructionsJMenuItem;
+    private javax.swing.JLabel lNameJLabel;
+    private javax.swing.JTextField lNameJTextField;
+    private javax.swing.JButton printJButton;
+    private javax.swing.JMenuItem printJMenuItem;
+    private javax.swing.JButton quitJButton;
+    private javax.swing.JMenuItem quitJMenuItem;
+    private javax.swing.JLabel roomJLabel;
+    private javax.swing.JTextField roomJTextField;
+    private javax.swing.JButton saveJButton;
+    private javax.swing.JMenuItem saveJMenuItem;
     // End of variables declaration//GEN-END:variables
 }

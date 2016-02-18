@@ -284,6 +284,13 @@ public class OrcaGUI extends javax.swing.JFrame
         clearJButton.setMnemonic('C');
         clearJButton.setText("Clear");
         clearJButton.setToolTipText("Resets the form for a new use");
+        clearJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJButtonActionPerformed(evt);
+            }
+        });
 
         printJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         printJButton.setMnemonic('P');
@@ -312,7 +319,6 @@ public class OrcaGUI extends javax.swing.JFrame
         receiptJTextArea.setEditable(false);
         receiptJTextArea.setColumns(20);
         receiptJTextArea.setRows(5);
-        receiptJTextArea.setText("asd\nopi\n\nsfsdf\n\n~~~~~~~~~\n\nasdada");
         receiptJTextArea.setToolTipText("Customer Receipt");
         receiptJTextArea.setAutoscrolls(false);
         receiptJScrollPane.setViewportView(receiptJTextArea);
@@ -323,10 +329,17 @@ public class OrcaGUI extends javax.swing.JFrame
         newCustJMenuItem.setMnemonic('A');
         newCustJMenuItem.setText("Add New Customer");
         newCustJMenuItem.setToolTipText("Add a new customer to the potential guest list");
+        newCustJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                newCustJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(newCustJMenuItem);
 
         printJMenuItem.setText("Print");
-        printJMenuItem.setToolTipText("Print the customer's receipt");
+        printJMenuItem.setToolTipText("Prints the entire window");
         printJMenuItem.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -482,6 +495,17 @@ public class OrcaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_printJButtonActionPerformed
         PrintUtilities.printComponent(receiptJTextArea);
     }//GEN-LAST:event_printJButtonActionPerformed
+
+    private void newCustJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newCustJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_newCustJMenuItemActionPerformed
+         new InsertCustomer().setVisible(true);
+    }//GEN-LAST:event_newCustJMenuItemActionPerformed
+
+    private void clearJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJButtonActionPerformed
+    {//GEN-HEADEREND:event_clearJButtonActionPerformed
+       paradiseJRadioButton.setSelected(true);
+       managerJCheckBox.setSelected(false);
+    }//GEN-LAST:event_clearJButtonActionPerformed
 
     /**
      * @param args the command line arguments
