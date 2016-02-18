@@ -5,17 +5,21 @@
  */
 package project.two;
 
+import java.awt.Component;
+import java.awt.Label;
+import java.awt.TextArea;
+
 /**
  *
  * @author Kevin
  */
-public class InsertCustomer extends javax.swing.JFrame
+public class InsertCustomerGUI extends javax.swing.JFrame
 {
 
     /**
      * Creates new form InsertCustomer
      */
-    public InsertCustomer()
+    public InsertCustomerGUI()
     {
         initComponents();
     }
@@ -231,7 +235,7 @@ public class InsertCustomer extends javax.swing.JFrame
 
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
     {//GEN-HEADEREND:event_printJButtonActionPerformed
-        
+      PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJButtonActionPerformed
 
     private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
@@ -239,6 +243,8 @@ public class InsertCustomer extends javax.swing.JFrame
         PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJMenuItemActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -261,17 +267,18 @@ public class InsertCustomer extends javax.swing.JFrame
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -279,7 +286,7 @@ public class InsertCustomer extends javax.swing.JFrame
         {
             public void run()
             {
-                new InsertCustomer().setVisible(true);
+                new InsertCustomerGUI().setVisible(true);
             }
         });
     }

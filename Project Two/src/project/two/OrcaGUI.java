@@ -5,7 +5,16 @@
  */
 package project.two;
 
-import javax.swing.JFrame;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -14,12 +23,43 @@ import javax.swing.JFrame;
 public class OrcaGUI extends javax.swing.JFrame
 {
 
+    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    //get current date time with Date()
+    Date date = new Date();
+    Date time = new Date();
+
+    private FileReader freader;
+    BufferedReader inputFile;
+
     /**
      * Creates new form OrcaGUI
      */
     public OrcaGUI()
     {
         initComponents();
+        clear();
+        try
+        {
+            freader = new FileReader("src//Customers.txt");
+            inputFile = new BufferedReader(freader);
+
+            // Read the first name from the file.
+            String customerName = inputFile.readLine();
+            // Add customer name to JComboBox
+            while (customerName != null)
+            {
+                customerJComboBox.addItem(customerName);
+                customerName = inputFile.readLine();
+            }
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch reading error
+        {
+            exp.printStackTrace();
+        }
+         
     }
 
     /**
@@ -84,24 +124,29 @@ public class OrcaGUI extends javax.swing.JFrame
         companyJLabel.setFont(new java.awt.Font("Bradley Hand ITC", 1, 36)); // NOI18N
         companyJLabel.setText("Orcas B&B");
 
+        dateJLabel.setBackground(new java.awt.Color(153, 204, 255));
         dateJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         dateJLabel.setText("Date:");
         dateJLabel.setToolTipText("Today's Date");
 
+        dateJTextField.setBackground(new java.awt.Color(153, 204, 255));
         dateJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         dateJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         dateJTextField.setToolTipText("Today's Date");
         dateJTextField.setEnabled(false);
 
+        timeJLabel.setBackground(new java.awt.Color(153, 204, 255));
         timeJLabel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         timeJLabel.setText("Time:");
         timeJLabel.setToolTipText("Time Transaction Began");
 
+        timeJTextField.setBackground(new java.awt.Color(153, 204, 255));
         timeJTextField.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         timeJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         timeJTextField.setToolTipText("Time Transaction Began");
         timeJTextField.setEnabled(false);
 
+        infoJPanel.setBackground(new java.awt.Color(153, 204, 255));
         infoJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Customer Information"));
         infoJPanel.setToolTipText("");
 
@@ -109,7 +154,6 @@ public class OrcaGUI extends javax.swing.JFrame
         customerJLabel.setText("Customer:");
         customerJLabel.setToolTipText("Please Select a Customer from the list");
 
-        customerJComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         customerJComboBox.setToolTipText("Please Select a Customer from the list");
 
         javax.swing.GroupLayout infoJPanelLayout = new javax.swing.GroupLayout(infoJPanel);
@@ -132,6 +176,7 @@ public class OrcaGUI extends javax.swing.JFrame
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        roomJPanel.setBackground(new java.awt.Color(153, 204, 255));
         roomJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Room Information"));
         roomJPanel.setToolTipText("Costs for the room itself");
 
@@ -204,6 +249,7 @@ public class OrcaGUI extends javax.swing.JFrame
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
+        chargesJPanel.setBackground(new java.awt.Color(153, 204, 255));
         chargesJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Additional Charges"));
         chargesJPanel.setToolTipText("Various expenses");
 
@@ -268,6 +314,7 @@ public class OrcaGUI extends javax.swing.JFrame
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        calculateJButton.setBackground(new java.awt.Color(153, 204, 255));
         calculateJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         calculateJButton.setMnemonic('l');
         calculateJButton.setText("Calculate");
@@ -280,6 +327,7 @@ public class OrcaGUI extends javax.swing.JFrame
             }
         });
 
+        clearJButton.setBackground(new java.awt.Color(153, 204, 255));
         clearJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         clearJButton.setMnemonic('C');
         clearJButton.setText("Clear");
@@ -292,6 +340,7 @@ public class OrcaGUI extends javax.swing.JFrame
             }
         });
 
+        printJButton.setBackground(new java.awt.Color(153, 204, 255));
         printJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         printJButton.setMnemonic('P');
         printJButton.setText("Print");
@@ -304,6 +353,7 @@ public class OrcaGUI extends javax.swing.JFrame
             }
         });
 
+        exitJButton.setBackground(new java.awt.Color(153, 204, 255));
         exitJButton.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         exitJButton.setMnemonic('x');
         exitJButton.setText("Exit");
@@ -473,12 +523,35 @@ public class OrcaGUI extends javax.swing.JFrame
 
     private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
     {//GEN-HEADEREND:event_calculateJButtonActionPerformed
-        new OrcaGUI().setVisible(true);
+        String msg = "Exception Handled";
+        double meals = 0.0;
+        double wifi = 0.0;
+        double misc = 0.0;
+        
+        try
+        {
+            if(!mealsJTextField.getText().isEmpty())
+            {
+               meals = Double.parseDouble(mealsJTextField.getText());
+               if(meals < 0)
+               {
+                   msg = "Invalid input for '" + mealsJLabel.getText() + "'";
+                   throw new NumberFormatException();
+               }
+            }
+        } catch (NumberFormatException exp)
+        {
+            //Handles thrown exception
+            JOptionPane.showMessageDialog(null, msg, "Input Error", JOptionPane.ERROR_MESSAGE);
+
+
+        } 
+        
     }//GEN-LAST:event_calculateJButtonActionPerformed
 
     private void exitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJButtonActionPerformed
     {//GEN-HEADEREND:event_exitJButtonActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_exitJButtonActionPerformed
 
     private void exitJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJMenuItemActionPerformed
@@ -488,7 +561,7 @@ public class OrcaGUI extends javax.swing.JFrame
 
     private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
     {//GEN-HEADEREND:event_printJMenuItemActionPerformed
-       PrintUtilities.printComponent(this);
+        PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJMenuItemActionPerformed
 
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
@@ -498,14 +571,47 @@ public class OrcaGUI extends javax.swing.JFrame
 
     private void newCustJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newCustJMenuItemActionPerformed
     {//GEN-HEADEREND:event_newCustJMenuItemActionPerformed
-         new InsertCustomer().setVisible(true);
+        new InsertCustomerGUI().setVisible(true);
     }//GEN-LAST:event_newCustJMenuItemActionPerformed
 
     private void clearJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJButtonActionPerformed
     {//GEN-HEADEREND:event_clearJButtonActionPerformed
-       paradiseJRadioButton.setSelected(true);
-       managerJCheckBox.setSelected(false);
+        clear();
     }//GEN-LAST:event_clearJButtonActionPerformed
+
+    private StringBuffer padSpaces(String first, String second)
+    {
+        final int FIRST_SPACES = 26, SECOND_SPACES = 26;
+        StringBuffer line = new StringBuffer();
+        int numberSpaces = FIRST_SPACES - first.length();
+        int numberSpaces2 = SECOND_SPACES - second.length();
+        for (int i = 0; i < numberSpaces; i++)
+        {
+            line.append(" ");
+        }
+        line.append(first);
+        for (int j = 0; j < numberSpaces2; j++)
+        {
+            line.append(" ");
+        }
+        line.append(second);
+        return line;
+    }
+
+    private void clear()
+    {
+        dateJTextField.setText(dateFormat.format(date));
+        timeJTextField.setText(timeFormat.format(date.getTime()));
+        customerJComboBox.setSelectedItem(0);//***
+        nightsJSpinner.setValue(1);
+        paradiseJRadioButton.setSelected(true);
+        managerJCheckBox.setSelected(false);
+        mealsJTextField.setText("");
+        wifiJTextField.setText("");
+        miscJTextField.setText("");
+        receiptJTextArea.setText("");
+        customerJComboBox.requestFocus();
+    }
 
     /**
      * @param args the command line arguments
