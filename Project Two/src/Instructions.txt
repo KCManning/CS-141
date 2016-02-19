@@ -1,0 +1,13 @@
+In order to calculate the totals, enter the following information:
+	Number of nights stayed (Max 14, Min 1)
+	Customer (Dropdown list; use File > Add New Customer for more)
+	Special Meals (Optional)
+	Internet Wi-Fi (Optional)
+	Miscellaneous (Optional)
+	Select the type of Room
+	Choose if Manager Discount is valid
+At any time, press "Enter" to trigger the "Calculate" button
+Use "Clear" to reset the form to defaults
+
+To Print the receipt, simply press the button.
+To Print the form in entirity, use File > Print.

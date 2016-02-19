@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package project.two;
 
 import java.awt.Toolkit;
@@ -16,6 +11,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner.DefaultEditor;
 
 /**
  *
@@ -24,26 +20,56 @@ import javax.swing.JOptionPane;
 public class OrcaGUI extends javax.swing.JFrame
 {
 
-    final double MAX_COSTS = 300.00;
+    private final double MAX_COSTS = 300.00;
 
-    DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
-    DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-    DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
+    private DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
+    private DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+    private DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
 
     private FileReader freader;
-    BufferedReader inputFile;
+    private BufferedReader inputFile;
 
     /**
-     * Creates new form OrcaGUI
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: OrcaGUI
+     * @Title: Default Constructor
+     *
+     * @Description: Initializes and runs the interface
+     *
+     * @Input: n/a
+     * @Output: Form
+     * @Parameters: n/a
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls:
+     * <br>initComponents(); Initializes the components
+     * <br>clear(); Sets the form to default values and focus
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Interface and Methods created
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
     public OrcaGUI()
     {
         initComponents();
+        //set default position
         this.setLocationRelativeTo(null);
         //set default button
         this.getRootPane().setDefaultButton(calculateJButton);
         //set icon
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/POS Icon.jpg"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src//POS Icon.png"));
+        //remove unwanted spinner interaction
+        ((DefaultEditor) nightsJSpinner.getEditor()).getTextField().setEditable(false);
+
         clear();
     }
 
@@ -90,6 +116,7 @@ public class OrcaGUI extends javax.swing.JFrame
         mainJMenuBar = new javax.swing.JMenuBar();
         fileJMenu = new javax.swing.JMenu();
         newCustJMenuItem = new javax.swing.JMenuItem();
+        clearJMenuItem = new javax.swing.JMenuItem();
         printJMenuItem = new javax.swing.JMenuItem();
         exitJMenuItem = new javax.swing.JMenuItem();
         roomsJMenu = new javax.swing.JMenu();
@@ -174,6 +201,7 @@ public class OrcaGUI extends javax.swing.JFrame
         nightsJSpinner.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         nightsJSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 14, 1));
         nightsJSpinner.setToolTipText("How many night was the customer with us?");
+        nightsJSpinner.setFocusable(false);
 
         roomsGroup.add(paradiseJRadioButton);
         paradiseJRadioButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -377,6 +405,19 @@ public class OrcaGUI extends javax.swing.JFrame
         });
         fileJMenu.add(newCustJMenuItem);
 
+        clearJMenuItem.setMnemonic('C');
+        clearJMenuItem.setText("Clear");
+        clearJMenuItem.setToolTipText("Resets the form for a new use");
+        clearJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJMenuItemActionPerformed(evt);
+            }
+        });
+        fileJMenu.add(clearJMenuItem);
+
+        printJMenuItem.setMnemonic('P');
         printJMenuItem.setText("Print");
         printJMenuItem.setToolTipText("Prints the entire window");
         printJMenuItem.addActionListener(new java.awt.event.ActionListener()
@@ -388,6 +429,7 @@ public class OrcaGUI extends javax.swing.JFrame
         });
         fileJMenu.add(printJMenuItem);
 
+        exitJMenuItem.setMnemonic('x');
         exitJMenuItem.setText("Exit");
         exitJMenuItem.setToolTipText("Close this window");
         exitJMenuItem.addActionListener(new java.awt.event.ActionListener()
@@ -406,14 +448,35 @@ public class OrcaGUI extends javax.swing.JFrame
 
         paradiseJMenuItem.setText("Paradise");
         paradiseJMenuItem.setToolTipText("$135 a night; 2 double beds, 1/2 bath, partial view");
+        paradiseJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                paradiseJMenuItemActionPerformed(evt);
+            }
+        });
         roomsJMenu.add(paradiseJMenuItem);
 
         atlantisJMenuItem.setText("Atlantis");
         atlantisJMenuItem.setToolTipText("$185 a night; 2 queen beds, 1/2 bath, partial view");
+        atlantisJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                atlantisJMenuItemActionPerformed(evt);
+            }
+        });
         roomsJMenu.add(atlantisJMenuItem);
 
         orcasJMenuItem.setText("Orcas");
         orcasJMenuItem.setToolTipText("$235 a night; 1 king size bed, full bath, wrap around balcony, full ocean view");
+        orcasJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                orcasJMenuItemActionPerformed(evt);
+            }
+        });
         roomsJMenu.add(orcasJMenuItem);
 
         mainJMenuBar.add(roomsJMenu);
@@ -422,9 +485,23 @@ public class OrcaGUI extends javax.swing.JFrame
         helpJMenu.setText("Help");
 
         instructionsJMenuItem.setText("Instructions");
+        instructionsJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                instructionsJMenuItemActionPerformed(evt);
+            }
+        });
         helpJMenu.add(instructionsJMenuItem);
 
         aboutJMenuItem.setText("About Orcas B&B POS");
+        aboutJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                aboutJMenuItemActionPerformed(evt);
+            }
+        });
         helpJMenu.add(aboutJMenuItem);
 
         mainJMenuBar.add(helpJMenu);
@@ -488,7 +565,9 @@ public class OrcaGUI extends javax.swing.JFrame
                                     .addComponent(timeJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(infoJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(logoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(logoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(roomJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -497,23 +576,62 @@ public class OrcaGUI extends javax.swing.JFrame
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(calculateJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(clearJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(printJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(exitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(receiptJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receiptJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: calculateJButtonActionPerformed
+     * @Title: btnCalculate
+     *
+     * @Description: Initializes and runs the interface
+     *
+     * @Input:
+     * <br>managerJCheckBox Determines if discounts is to be applied
+     * <br>mealsJTextField Captures value of meals
+     * <br>wifiJTextField Captures cost of wifi
+     * <br>miscJTextField Captures other miscellaneous costs
+     * <br>paradiseJRadioButton, atlantisJRadioButton, orcasJRadioButton
+     * Determines the room
+     * <br>nightsJSpinner Brings in the number of nights the customer stayed
+     * <br>customerJComboBox Chooses which customer this receipt is for
+     * @Output:
+     * <br>receiptJTextArea Printable area to store receipt
+     * <br>JOptionPane Messagebox for errors
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls:
+     * <br>Invoice() Object constructor
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
     {//GEN-HEADEREND:event_calculateJButtonActionPerformed
+        //Declare components
         StringBuffer receiptMaker = new StringBuffer();
-        CostDataManager cdm;
+        Invoice invoice;
         String msg = "Exception Handled";
         double meals = 0.0;
         double wifi = 0.0;
@@ -522,13 +640,14 @@ public class OrcaGUI extends javax.swing.JFrame
         boolean discount = managerJCheckBox.isSelected();
         boolean booMeals = false, booWifi = false, booMisc = false;
 
-        CostDataManager.rooms room;
+        //Calls and declares an enumerated value
+        Invoice.rooms room;
 
         try
         {
-
-            if (!mealsJTextField.getText().isEmpty())
+            if (!mealsJTextField.getText().isEmpty()) //Checks if input is in box
             {
+                //prepares a message in case of error
                 msg = "Please pick a positive number below " + twoDecimal.format(MAX_COSTS)
                         + " for '" + mealsJLabel.getText().replace(':', '\'');
                 try
@@ -540,11 +659,13 @@ public class OrcaGUI extends javax.swing.JFrame
                     //Handles thrown exception
                     JOptionPane.showMessageDialog(null, msg, "Input Error",
                             JOptionPane.ERROR_MESSAGE);
+                    //Sets invalid inputs to allow user correction
                     mealsJTextField.requestFocus();
                     mealsJTextField.selectAll();
                 }
                 if (meals < 0 || meals > MAX_COSTS)
                 {
+                    //Verifies valid numerical input
                     mealsJTextField.requestFocus();
                     mealsJTextField.selectAll();
                     throw new ArithmeticException();
@@ -552,8 +673,9 @@ public class OrcaGUI extends javax.swing.JFrame
             }
             if (!wifiJTextField.getText().isEmpty())
             {
+                //See mealsJTextField Validation for additional information
                 msg = "Please pick a positive number below " + twoDecimal.format(MAX_COSTS)
-                        + "for '" + wifiJLabel.getText().replace(':', '\'');
+                        + " for '" + wifiJLabel.getText().replace(':', '\'');
                 try
                 {
                     booWifi = true;
@@ -575,8 +697,9 @@ public class OrcaGUI extends javax.swing.JFrame
             }
             if (!miscJTextField.getText().isEmpty())
             {
+                //See mealsJTextField Validation for additional information
                 msg = "Please pick a positive number below " + twoDecimal.format(MAX_COSTS)
-                        + "for '" + miscJLabel.getText().replace(':', '\'');
+                        + " for '" + miscJLabel.getText().replace(':', '\'');
                 try
                 {
                     booMisc = true;
@@ -597,32 +720,38 @@ public class OrcaGUI extends javax.swing.JFrame
                 }
             }
 
+            //Checks radio buttons to set enumeration
             if (paradiseJRadioButton.isSelected())
             {
-                room = CostDataManager.rooms.paradise;
+                room = Invoice.rooms.paradise;
             } else if (atlantisJRadioButton.isSelected())
             {
-                room = CostDataManager.rooms.atlantis;
+                room = Invoice.rooms.atlantis;
             } else if (orcasJRadioButton.isSelected())
             {
-                room = CostDataManager.rooms.orcas;
+                room = Invoice.rooms.orcas;
             } else
             {
-                room = CostDataManager.rooms.paradise;
+                room = Invoice.rooms.paradise;
             }
 
-            cdm = new CostDataManager(meals, wifi, misc,
-                    Integer.parseInt(nightsJSpinner.getValue().toString()), discount, room);
+            //Instantiates the Invoice object with gathered, and verified, data
+            invoice = new Invoice(meals, wifi, misc,
+                    Byte.parseByte(nightsJSpinner.getValue().toString()), discount, room);
+
+            //Formats and adds strings to a buffer for printing to a text area
             receiptMaker.append(customerJComboBox.getSelectedItem().toString()
                     + "'s Itemized Bill\n");
             receiptMaker.append(padSpaces("Items", "Charges") + "\n");
             receiptMaker.append(padSpaces("~~~~~", "~~~~~~~") + "\n");
             receiptMaker.append(padSpaces("Room Charges:",
-                    twoDecimal.format(cdm.getRoomCost())) + "\n");
+                    twoDecimal.format(invoice.getRoomCost())) + "\n");
+
+            //Checks if information is necessary and builds accordingly
             if (discount)
             {
                 receiptMaker.append(padSpaces("Manager Discretion:",
-                        twoDecimal.format(cdm.getDiscount())) + "\n");
+                        twoDecimal.format(invoice.getDiscount())) + "\n");
             } else
             {
                 skips++;
@@ -655,83 +784,585 @@ public class OrcaGUI extends javax.swing.JFrame
                 skips++;
             }
 
+            //Inputs place holder gaps for unessecary or omitted data
             for (int i = 0; i < skips - 1; i++)
             {
                 receiptMaker.append("\n");
             }
 
+            //Places final sections and calculated data into buffed
             receiptMaker.append(padSpaces("Subtotal:",
-                    twoDecimal.format(cdm.calcTotal())) + "\n");
+                    twoDecimal.format(invoice.calcTotal())) + "\n");
             receiptMaker.append(padSpaces("Taxes (8%):",
-                    twoDecimal.format(cdm.calcTotal() * cdm.getTAX())) + "\n");
-            receiptMaker.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-            receiptMaker.append(padSpaces("Total:",
-                    twoDecimal.format(cdm.calcTotal() + (cdm.calcTotal() * cdm.getTAX()))));
+                    twoDecimal.format(invoice.calcTotal() * invoice.getTAX())) + "\n");
+            receiptMaker.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            receiptMaker.append(padSpaces("Total:", twoDecimal.format(invoice.calcTotal()
+                    + (invoice.calcTotal() * invoice.getTAX()))));
 
+            //Prints the buffer to the text area
             receiptJTextArea.setText(receiptMaker.toString());
-
         } catch (ArithmeticException exp)
         {
             //Handles thrown exception
-            JOptionPane.showMessageDialog(null, msg, "Out-Of-Range Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, msg, "Out-Of-Range Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_calculateJButtonActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: exitJButtonActionPerformed
+     * @Title: btnExit
+     *
+     * @Description: Exits the Program
+     *
+     * @Input:n/a
+     * @Output:n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: System.exit()
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void exitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJButtonActionPerformed
     {//GEN-HEADEREND:event_exitJButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitJButtonActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: exitJMenuItemActionPerformed
+     * @Title: menuExit
+     *
+     * @Description: Exits the Program
+     *
+     * @Input:n/a
+     * @Output:n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: System.exit()
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void exitJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJMenuItemActionPerformed
     {//GEN-HEADEREND:event_exitJMenuItemActionPerformed
         System.exit(0);
     }//GEN-LAST:event_exitJMenuItemActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: printJMenuItemActionPerformed
+     * @Title: menuPrint
+     *
+     * @Description: Prints the entire interface
+     *
+     * @Input:n/a
+     * @Output: Printer
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: PrintUtilities.printComponent() - Prints provided component
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
     {//GEN-HEADEREND:event_printJMenuItemActionPerformed
         PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJMenuItemActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: printJButtonActionPerformed
+     * @Title: btnPrint
+     *
+     * @Description: Prints the receipt
+     *
+     * @Input:n/a
+     * @Output: Printer
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: PrintUtilities.printComponent() - Prints provided component
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
     {//GEN-HEADEREND:event_printJButtonActionPerformed
         PrintUtilities.printComponent(receiptJTextArea);
     }//GEN-LAST:event_printJButtonActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: newCustJMenuItemActionPerformed
+     * @Title: New Customer Interface
+     *
+     * @Description: Calls the form to input a new customer
+     *
+     * @Input:n/a
+     * @Output: new form
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: InsertCustomerGUI().setVisible() Activates the new form
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void newCustJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_newCustJMenuItemActionPerformed
     {//GEN-HEADEREND:event_newCustJMenuItemActionPerformed
         new InsertCustomerGUI().setVisible(true);
     }//GEN-LAST:event_newCustJMenuItemActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: clearJButtonActionPerformed
+     * @Title: btnClear
+     *
+     * @Description: Sets the form to defaults
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: clear(); -Resets the form to defaults
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void clearJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJButtonActionPerformed
     {//GEN-HEADEREND:event_clearJButtonActionPerformed
         clear();
     }//GEN-LAST:event_clearJButtonActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: paradiseJMenuItemActionPerformed
+     * @Title: menuParadise
+     *
+     * @Description: Sets the paradise radio button to checked
+     *
+     * @Input: paradiseJRadioButton
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void paradiseJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_paradiseJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_paradiseJMenuItemActionPerformed
+        paradiseJRadioButton.setSelected(true);
+    }//GEN-LAST:event_paradiseJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: atlantisJMenuItemActionPerformed
+     * @Title: menuAtlantis
+     *
+     * @Description: Sets the Atlantis radio button to checked
+     *
+     * @Input: atlantisJRadioButton
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void atlantisJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_atlantisJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_atlantisJMenuItemActionPerformed
+        atlantisJRadioButton.setSelected(true);
+    }//GEN-LAST:event_atlantisJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: orcasJMenuItemActionPerformed
+     * @Title: menuOrcas
+     *
+     * @Description: Sets the orcas radio button to checked
+     *
+     * @Input: orcasJRadioButton
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void orcasJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_orcasJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_orcasJMenuItemActionPerformed
+        orcasJRadioButton.setSelected(true);
+    }//GEN-LAST:event_orcasJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: instructionsJMenuItemActionPerformed
+     * @Title: Instructions
+     *
+     * @Description: Calls the instructions window
+     *
+     * @Input: n/a
+     * @Output: Instructions Window
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: helpMenu();
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void instructionsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_instructionsJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_instructionsJMenuItemActionPerformed
+        helpMenu("Instructions");
+    }//GEN-LAST:event_instructionsJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: aboutJMenuItemActionPerformed
+     * @Title: About
+     *
+     * @Description: Calls the about window
+     *
+     * @Input: n/a
+     * @Output: About Window
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: helpMenu();
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void aboutJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_aboutJMenuItemActionPerformed
+        helpMenu("About");
+    }//GEN-LAST:event_aboutJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: clearJMenuItemActionPerformed
+     * @Title: menuClear
+     *
+     * @Description: Sets the form to defaults
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: clear(); -Resets the form to defaults
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void clearJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
+        clear();
+    }//GEN-LAST:event_clearJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: padSpaces
+     * @Title: Padding Spacer
+     *
+     * @Description: Takes two strings, and sets them to a fixed width
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters:
+     * <br>String first - The first string to be 'placed'
+     * <br>String second - The second string to be 'placed'
+     * @Return: line - the strings placed into a single set width
+     *
+     * @CalledBy: btnCalc
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private StringBuffer padSpaces(String first, String second)
     {
+        //Initializes variables
         final int FIRST_SPACES = 25, SECOND_SPACES = 12;
         StringBuffer line = new StringBuffer();
         int numberSpaces = FIRST_SPACES - first.length();
         int numberSpaces2 = SECOND_SPACES - second.length();
+
+        //Checks the width of the first dection
         for (int i = 0; i < numberSpaces; i++)
         {
             line.append(" ");
         }
         line.append(first);
+
+        //Checks the width of the second section
         for (int j = 0; j < numberSpaces2; j++)
         {
             line.append(" ");
         }
         line.append(second);
+
         return line;
     }
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: helpMenu
+     * @Title: Help Menu Builder
+     *
+     * @Description: Opens the needed file, pulls the data into the string, and
+     * places it into a popup.
+     *
+     * @Input: n/a
+     * @Output: JOptionPane - Puts the information up to the screen
+     *
+     * @Parameters:
+     * <br>String type - Sets file name and window message
+     * @Return: n/a
+     *
+     * @CalledBy: menuInstructions, menuAbout
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void helpMenu(String type)
+    {
+        try
+        {
+            freader = new FileReader("src//" + type + ".txt");
+            inputFile = new BufferedReader(freader);
+
+            // Read the first name from the file.
+            String inputLines = inputFile.readLine();
+            StringBuffer data = new StringBuffer();
+
+            while (inputLines != null)
+            {
+                data.append(inputLines + "\n");
+                inputLines = inputFile.readLine();
+            }
+
+            JOptionPane.showMessageDialog(null, data, type,
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch reading error
+        {
+            exp.printStackTrace();
+        }
+    }
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: clear()
+     * @Title: Clear
+     *
+     * @Description: Sets the form to the default values
+     *
+     * @Input: n/a
+     * @Output:
+     * <br>dateJTextField - Sets to default
+     * <br>timeJTextField - Sets to default
+     * <br>nightsJSpinner - Sets to default
+     * <br>paradiseJRadioButton - Sets to default
+     * <br>managerJCheckBox - Sets to default
+     * <br>mealsJTextField - Sets to default
+     * <br>wifiJTextField - Sets to default
+     * <br>miscJTextField - Sets to default
+     * <br>receiptJTextArea - Sets to default
+     *
+     * @Parameters: String type - Sets file name and window message
+     * @Return: n/a
+     *
+     * @CalledBy: menuClear, default constructor, btnClear
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void clear()
     {
         //get current date time with Date()
         Date date = new Date();
 
+        //Sets all fields to the desired values
         dateJTextField.setText(dateFormat.format(date));
         timeJTextField.setText(timeFormat.format(date.getTime()));
         loadSpinner();
@@ -742,9 +1373,37 @@ public class OrcaGUI extends javax.swing.JFrame
         wifiJTextField.setText("");
         miscJTextField.setText("");
         receiptJTextArea.setText("");
-        customerJComboBox.requestFocus();
+        nightsJSpinner.requestFocus();
     }
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: OrcaGUI
+     * @File: OrcaGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: loadSpinner()
+     * @Title: Load Spinner
+     *
+     * @Description: Fills the spinner with the data from the customer file
+     *
+     * @Input: Customer.txt - file of customer names
+     * @Output: customerJComboBox - Fills with data from file
+     *
+     * @Parameters: String type - Sets file name and window message
+     * @Return: n/a
+     *
+     * @CalledBy: menuClear, default constructor, btnClear
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void loadSpinner()
     {
         try
@@ -755,7 +1414,9 @@ public class OrcaGUI extends javax.swing.JFrame
             // Read the first name from the file.
             String customerName = inputFile.readLine();
 
+            //Clears JComboBox to prevent rewriting
             customerJComboBox.removeAllItems();
+
             // Add customer name to JComboBox
             while (customerName != null)
             {
@@ -823,6 +1484,7 @@ public class OrcaGUI extends javax.swing.JFrame
     private javax.swing.JButton calculateJButton;
     private javax.swing.JPanel chargesJPanel;
     private javax.swing.JButton clearJButton;
+    private javax.swing.JMenuItem clearJMenuItem;
     private javax.swing.JLabel companyJLabel;
     private javax.swing.JComboBox<String> customerJComboBox;
     private javax.swing.JLabel customerJLabel;

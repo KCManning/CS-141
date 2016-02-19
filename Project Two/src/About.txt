@@ -1,0 +1,10 @@
+Built by Kevin Manning in 2016 for CS& 141
+
+Based on code and requirements provided by Nico Cuvelski
+
+This program utilizes information about our guests to tally
+their expenses and calculate the total cost of their stay
+with us.
+
+It also allows you to print the itemized reciept.
+For more intormation, please check the instructions.

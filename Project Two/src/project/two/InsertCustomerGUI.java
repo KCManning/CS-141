@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package project.two;
 
-import java.awt.Component;
-import java.awt.Label;
-import java.awt.TextArea;
+import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,11 +15,41 @@ public class InsertCustomerGUI extends javax.swing.JFrame
 {
 
     /**
-     * Creates new form InsertCustomer
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: InsertCustomerGUI
+     * @Title: Default Constructor
+     *
+     * @Description: Sets the Customer Input GUI
+     *
+     * @Input: n/a
+     * @Output: New form
+     *
+     * @Parameters: n/a
+     * @Return: n/a
+     *
+     * @CalledBy: menuAddCustomer
+     * @Calls: initComponents
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
     public InsertCustomerGUI()
     {
         initComponents();
+        this.setLocationRelativeTo(null);
+        //set default button
+        this.getRootPane().setDefaultButton(saveJButton);
+        //set icon
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src//POS Icon.png"));
     }
 
     /**
@@ -34,12 +62,11 @@ public class InsertCustomerGUI extends javax.swing.JFrame
     private void initComponents()
     {
 
-        fNameJLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lNameJTextField = new javax.swing.JTextField();
         fNameJTextField = new javax.swing.JTextField();
         lNameJLabel = new javax.swing.JLabel();
-        lNameJTextField = new javax.swing.JTextField();
-        roomJLabel = new javax.swing.JLabel();
-        roomJTextField = new javax.swing.JTextField();
+        fNameJLabel = new javax.swing.JLabel();
         saveJButton = new javax.swing.JButton();
         printJButton = new javax.swing.JButton();
         clearJButton = new javax.swing.JButton();
@@ -50,18 +77,15 @@ public class InsertCustomerGUI extends javax.swing.JFrame
         printJMenuItem = new javax.swing.JMenuItem();
         clearJMenuItem = new javax.swing.JMenuItem();
         quitJMenuItem = new javax.swing.JMenuItem();
-        helpJMenu = new javax.swing.JMenu();
-        insructionsJMenuItem = new javax.swing.JMenuItem();
-        aboutJMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Customer Input");
-        setAlwaysOnTop(true);
         setResizable(false);
 
-        fNameJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        fNameJLabel.setText("First Name:");
-        fNameJLabel.setToolTipText("Customer's First Name");
+        jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+
+        lNameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        lNameJTextField.setToolTipText("Customer's Last Name");
 
         fNameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         fNameJTextField.setToolTipText("Customer's First Name");
@@ -70,20 +94,23 @@ public class InsertCustomerGUI extends javax.swing.JFrame
         lNameJLabel.setText("Last Name:");
         lNameJLabel.setToolTipText("Customer's Last Name");
 
-        lNameJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        lNameJTextField.setToolTipText("Customer's Last Name");
+        fNameJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        fNameJLabel.setText("First Name:");
+        fNameJLabel.setToolTipText("Customer's First Name");
 
-        roomJLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        roomJLabel.setText("Room Number:");
-        roomJLabel.setToolTipText("Customer's Room Number");
-
-        roomJTextField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        roomJTextField.setToolTipText("Customer's Room Number");
-
+        saveJButton.setBackground(new java.awt.Color(153, 204, 255));
         saveJButton.setMnemonic('S');
         saveJButton.setText("Save");
         saveJButton.setToolTipText("Saves the customer");
+        saveJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                saveJButtonActionPerformed(evt);
+            }
+        });
 
+        printJButton.setBackground(new java.awt.Color(153, 204, 255));
         printJButton.setMnemonic('P');
         printJButton.setText("Print");
         printJButton.setToolTipText("Prints the customer information");
@@ -95,10 +122,19 @@ public class InsertCustomerGUI extends javax.swing.JFrame
             }
         });
 
+        clearJButton.setBackground(new java.awt.Color(153, 204, 255));
         clearJButton.setMnemonic('C');
         clearJButton.setText("Clear");
         clearJButton.setToolTipText("Resets the form");
+        clearJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJButtonActionPerformed(evt);
+            }
+        });
 
+        quitJButton.setBackground(new java.awt.Color(153, 204, 255));
         quitJButton.setMnemonic('Q');
         quitJButton.setText("Quit");
         quitJButton.setToolTipText("Closes this window without saving");
@@ -110,6 +146,51 @@ public class InsertCustomerGUI extends javax.swing.JFrame
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lNameJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(fNameJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fNameJTextField)
+                            .addComponent(lNameJTextField, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(printJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clearJButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(quitJButton)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fNameJLabel)
+                    .addComponent(fNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lNameJLabel)
+                    .addComponent(lNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(clearJButton)
+                    .addComponent(saveJButton)
+                    .addComponent(printJButton)
+                    .addComponent(quitJButton))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
         fileJMenu.setMnemonic('F');
         fileJMenu.setText("File");
         fileJMenu.setToolTipText("Additional Options");
@@ -117,6 +198,13 @@ public class InsertCustomerGUI extends javax.swing.JFrame
         saveJMenuItem.setMnemonic('v');
         saveJMenuItem.setText("Save");
         saveJMenuItem.setToolTipText("Saves the customer");
+        saveJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                saveJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(saveJMenuItem);
 
         printJMenuItem.setMnemonic('r');
@@ -134,6 +222,13 @@ public class InsertCustomerGUI extends javax.swing.JFrame
         clearJMenuItem.setMnemonic('l');
         clearJMenuItem.setText("Clear");
         clearJMenuItem.setToolTipText("Resets the form");
+        clearJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(clearJMenuItem);
 
         quitJMenuItem.setMnemonic('u');
@@ -150,101 +245,401 @@ public class InsertCustomerGUI extends javax.swing.JFrame
 
         custJMenuBar.add(fileJMenu);
 
-        helpJMenu.setMnemonic('H');
-        helpJMenu.setText("Help");
-        helpJMenu.setToolTipText("Information about the program and creators");
-
-        insructionsJMenuItem.setMnemonic('I');
-        insructionsJMenuItem.setText("Instructions");
-        insructionsJMenuItem.setToolTipText("Clarifying information about how to use this software");
-        helpJMenu.add(insructionsJMenuItem);
-
-        aboutJMenuItem.setMnemonic('t');
-        aboutJMenuItem.setText("About");
-        aboutJMenuItem.setToolTipText("Informnation about this software and its creators");
-        helpJMenu.add(aboutJMenuItem);
-
-        custJMenuBar.add(helpJMenu);
-
         setJMenuBar(custJMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(saveJButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(printJButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clearJButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quitJButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lNameJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(roomJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(fNameJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lNameJTextField)
-                            .addComponent(roomJTextField)
-                            .addComponent(fNameJTextField))))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(fNameJLabel)
-                    .addComponent(fNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lNameJLabel)
-                    .addComponent(lNameJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomJLabel)
-                    .addComponent(roomJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clearJButton)
-                    .addComponent(saveJButton)
-                    .addComponent(printJButton)
-                    .addComponent(quitJButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: quitJButtonActionPerformed
+     * @Title: btnQuit
+     *
+     * @Description: Closes the form
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void quitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJButtonActionPerformed
     {//GEN-HEADEREND:event_quitJButtonActionPerformed
         dispose();
     }//GEN-LAST:event_quitJButtonActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: quitJMenuItemActionPerformed
+     * @Title: menuQuit
+     *
+     * @Description: Closes the form
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void quitJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_quitJMenuItemActionPerformed
     {//GEN-HEADEREND:event_quitJMenuItemActionPerformed
         dispose();
     }//GEN-LAST:event_quitJMenuItemActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: printJButtonActionPerformed
+     * @Title: btnPrint
+     *
+     * @Description: Prints the form
+     *
+     * @Input: n/a
+     * @Output: Printer
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: PrintUtilities.printComponent
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
     {//GEN-HEADEREND:event_printJButtonActionPerformed
-      PrintUtilities.printComponent(this);
+        PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJButtonActionPerformed
 
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: printJMenuItemActionPerformed
+     * @Title: menuPrint
+     *
+     * @Description: Prints the form
+     *
+     * @Input: n/a
+     * @Output: Printer
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: PrintUtilities.printComponent
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
     private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
     {//GEN-HEADEREND:event_printJMenuItemActionPerformed
         PrintUtilities.printComponent(this);
     }//GEN-LAST:event_printJMenuItemActionPerformed
 
-    
-    
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: clearJButtonActionPerformed
+     * @Title: btnClear
+     *
+     * @Description:Clears the form
+     *
+     * @Input: java.awt.event.ActionEvent evt - Action
+     * @Output: n/a
+     *
+     * @Parameters: n/a
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls:clear()
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void clearJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJButtonActionPerformed
+    {//GEN-HEADEREND:event_clearJButtonActionPerformed
+        clear();
+    }//GEN-LAST:event_clearJButtonActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: clearJMenuItemActionPerformed
+     * @Title: menuClear
+     *
+     * @Description: Clears the form
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: clear()
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void clearJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
+        clear();
+    }//GEN-LAST:event_clearJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: saveJButtonActionPerformed
+     * @Title: btnSave
+     *
+     * @Description: Saves the customer info
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: save()
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void saveJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJButtonActionPerformed
+    {//GEN-HEADEREND:event_saveJButtonActionPerformed
+        save();
+    }//GEN-LAST:event_saveJButtonActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: saveJMenuItemActionPerformed
+     * @Title: menuSave
+     *
+     * @Description: Saves the customer info
+     *
+     * @Input: n/a
+     * @Output: n/a
+     *
+     * @Parameters: java.awt.event.ActionEvent evt - Action
+     * @Return: n/a
+     *
+     * @CalledBy: n/a
+     * @Calls: save()
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void saveJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_saveJMenuItemActionPerformed
+        save();
+    }//GEN-LAST:event_saveJMenuItemActionPerformed
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: clear
+     * @Title: Clear
+     *
+     * @Description: Clears both text boxes
+     *
+     * @Input: n/a
+     * @Output:
+     * <br>fNameJTextField - Clears
+     * <br>lNameJTextField - Clears
+     *
+     * @Parameters: n/a
+     * @Return: n/a
+     *
+     * @CalledBy: btnClear, menuClear
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void clear()
+    {
+        fNameJTextField.setText("");
+        lNameJTextField.setText("");
+        fNameJTextField.requestFocus();
+    }
+
+    /**
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     *
+     * @Class: InsertCustomerGUI
+     * @File: InsertCustomerGUI.java
+     *
+     * @author: Kevin Manning
+     *
+     * @Function: save
+     * @Title: Save
+     *
+     * @Description: Clears both text boxes
+     *
+     * @Input:
+     * <br>fNameJTextField - Puts into string
+     * <br>lNameJTextField - Puts into string
+     * 
+     * @Output:
+     * <br>Customer.txt
+     *
+     * @Parameters: n/a
+     * @Return: n/a
+     *
+     * @CalledBy: btnSave, menuSave
+     * @Calls: n/a
+     *
+     * @Environment: PC, Windows 10, jdk8.0, NetBeans 8.1
+     * @Date: 2/18/2016
+     * @version 1.0
+     * @HistoryLog: 2/18/16 - Built function and called methods
+     * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     */
+    private void save()
+    {
+        //Prepares a file for writing
+        File file;
+        FileWriter writer;
+        
+        try
+        {
+            //Verifies the file is valid
+            file = new File("src//Customers.txt");
+            writer = new FileWriter(file, true);
+            
+            //Verifies inputs are valid
+            if (!fNameJTextField.getText().isEmpty())
+            {
+                if (!lNameJTextField.getText().isEmpty())
+                {
+                    String customerName = "\n" + fNameJTextField.getText() + " "
+                            + lNameJTextField.getText();
+                    //Places the data in the file, closes file and window
+                    writer.write(customerName);
+                    writer.close();
+                    dispose();
+                } else
+                {
+                    lNameJTextField.requestFocus();
+                    throw new IllegalStateException();
+                }
+            } else
+            {
+                fNameJTextField.requestFocus();
+                throw new IllegalStateException();
+            }
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch writing error
+        {
+            exp.printStackTrace();
+        } catch (IllegalStateException exp)// catch empy text field
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a first AND last name.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -263,20 +658,28 @@ public class InsertCustomerGUI extends javax.swing.JFrame
                 {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex)
         {
-            java.util.logging.Logger.getLogger(InsertCustomerGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InsertCustomerGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -292,23 +695,19 @@ public class InsertCustomerGUI extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutJMenuItem;
     private javax.swing.JButton clearJButton;
     private javax.swing.JMenuItem clearJMenuItem;
     private javax.swing.JMenuBar custJMenuBar;
     private javax.swing.JLabel fNameJLabel;
     private javax.swing.JTextField fNameJTextField;
     private javax.swing.JMenu fileJMenu;
-    private javax.swing.JMenu helpJMenu;
-    private javax.swing.JMenuItem insructionsJMenuItem;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lNameJLabel;
     private javax.swing.JTextField lNameJTextField;
     private javax.swing.JButton printJButton;
     private javax.swing.JMenuItem printJMenuItem;
     private javax.swing.JButton quitJButton;
     private javax.swing.JMenuItem quitJMenuItem;
-    private javax.swing.JLabel roomJLabel;
-    private javax.swing.JTextField roomJTextField;
     private javax.swing.JButton saveJButton;
     private javax.swing.JMenuItem saveJMenuItem;
     // End of variables declaration//GEN-END:variables

@@ -22,8 +22,19 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newCustJMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="clearJMenuItem">
+              <Properties>
+                <Property name="mnemonic" type="int" value="67"/>
+                <Property name="text" type="java.lang.String" value="Clear"/>
+                <Property name="toolTipText" type="java.lang.String" value="Resets the form for a new use"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearJMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="printJMenuItem">
               <Properties>
+                <Property name="mnemonic" type="int" value="80"/>
                 <Property name="text" type="java.lang.String" value="Print"/>
                 <Property name="toolTipText" type="java.lang.String" value="Prints the entire window"/>
               </Properties>
@@ -33,6 +44,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="exitJMenuItem">
               <Properties>
+                <Property name="mnemonic" type="int" value="120"/>
                 <Property name="text" type="java.lang.String" value="Exit"/>
                 <Property name="toolTipText" type="java.lang.String" value="Close this window"/>
               </Properties>
@@ -53,18 +65,27 @@
                 <Property name="text" type="java.lang.String" value="Paradise"/>
                 <Property name="toolTipText" type="java.lang.String" value="$135 a night; 2 double beds, 1/2 bath, partial view"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paradiseJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="atlantisJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Atlantis"/>
                 <Property name="toolTipText" type="java.lang.String" value="$185 a night; 2 queen beds, 1/2 bath, partial view"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atlantisJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="orcasJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Orcas"/>
                 <Property name="toolTipText" type="java.lang.String" value="$235 a night; 1 king size bed, full bath, wrap around balcony, full ocean view"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="orcasJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -78,11 +99,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Instructions"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="instructionsJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="aboutJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About Orcas B&amp;B POS"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -185,7 +212,10 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="infoJPanel" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="logoJLabel" min="-2" pref="126" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="logoJLabel" min="-2" pref="126" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -196,14 +226,14 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="calculateJButton" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="clearJButton" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="printJButton" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="exitJButton" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="receiptJScrollPane" min="-2" pref="210" max="-2" attributes="0"/>
+                  <Component id="receiptJScrollPane" min="-2" pref="218" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
           </Group>
@@ -417,6 +447,7 @@
               <SpinnerModel initial="1" maximum="14" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="How many night was the customer with us?"/>
+            <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="paradiseJRadioButton">
