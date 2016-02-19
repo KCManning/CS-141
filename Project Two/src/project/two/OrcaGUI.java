@@ -5,16 +5,17 @@
  */
 package project.two;
 
+import java.awt.Toolkit;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
 import javax.swing.JOptionPane;
-
 
 /**
  *
@@ -23,11 +24,11 @@ import javax.swing.JOptionPane;
 public class OrcaGUI extends javax.swing.JFrame
 {
 
+    final double MAX_COSTS = 300.00;
+
     DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy");
     DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-    //get current date time with Date()
-    Date date = new Date();
-    Date time = new Date();
+    DecimalFormat twoDecimal = new DecimalFormat("$#,##0.00");
 
     private FileReader freader;
     BufferedReader inputFile;
@@ -38,28 +39,12 @@ public class OrcaGUI extends javax.swing.JFrame
     public OrcaGUI()
     {
         initComponents();
+        this.setLocationRelativeTo(null);
+        //set default button
+        this.getRootPane().setDefaultButton(calculateJButton);
+        //set icon
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/POS Icon.jpg"));
         clear();
-        try
-        {
-            freader = new FileReader("src//Customers.txt");
-            inputFile = new BufferedReader(freader);
-
-            // Read the first name from the file.
-            String customerName = inputFile.readLine();
-            // Add customer name to JComboBox
-            while (customerName != null)
-            {
-                customerJComboBox.addItem(customerName);
-                customerName = inputFile.readLine();
-            }
-        } catch (FileNotFoundException exp) // catch file not found
-        {
-            exp.printStackTrace();
-        } catch (IOException exp) // catch reading error
-        {
-            exp.printStackTrace();
-        }
-         
     }
 
     /**
@@ -117,6 +102,7 @@ public class OrcaGUI extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Orcas B&B POS");
+        setName("OrcaGUI"); // NOI18N
         setResizable(false);
 
         logoJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Island Image Icon 2.jpg"))); // NOI18N
@@ -366,8 +352,11 @@ public class OrcaGUI extends javax.swing.JFrame
             }
         });
 
+        receiptJScrollPane.setVerifyInputWhenFocusTarget(false);
+
         receiptJTextArea.setEditable(false);
         receiptJTextArea.setColumns(20);
+        receiptJTextArea.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
         receiptJTextArea.setRows(5);
         receiptJTextArea.setToolTipText("Customer Receipt");
         receiptJTextArea.setAutoscrolls(false);
@@ -505,16 +494,16 @@ public class OrcaGUI extends javax.swing.JFrame
                     .addComponent(roomJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(chargesJPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(calculateJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(clearJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(printJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(exitJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(receiptJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(receiptJScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(9, 9, 9))
         );
 
@@ -523,30 +512,170 @@ public class OrcaGUI extends javax.swing.JFrame
 
     private void calculateJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_calculateJButtonActionPerformed
     {//GEN-HEADEREND:event_calculateJButtonActionPerformed
+        StringBuffer receiptMaker = new StringBuffer();
+        CostDataManager cdm;
         String msg = "Exception Handled";
         double meals = 0.0;
         double wifi = 0.0;
         double misc = 0.0;
-        
+        short skips = 0;
+        boolean discount = managerJCheckBox.isSelected();
+        boolean booMeals = false, booWifi = false, booMisc = false;
+
+        CostDataManager.rooms room;
+
         try
         {
-            if(!mealsJTextField.getText().isEmpty())
+
+            if (!mealsJTextField.getText().isEmpty())
             {
-               meals = Double.parseDouble(mealsJTextField.getText());
-               if(meals < 0)
-               {
-                   msg = "Invalid input for '" + mealsJLabel.getText() + "'";
-                   throw new NumberFormatException();
-               }
+                msg = "Please pick a positive number below " + twoDecimal.format(MAX_COSTS)
+                        + " for '" + mealsJLabel.getText().replace(':', '\'');
+                try
+                {
+                    booMeals = true;
+                    meals = Double.parseDouble(mealsJTextField.getText());
+                } catch (NumberFormatException exp)
+                {
+                    //Handles thrown exception
+                    JOptionPane.showMessageDialog(null, msg, "Input Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    mealsJTextField.requestFocus();
+                    mealsJTextField.selectAll();
+                }
+                if (meals < 0 || meals > MAX_COSTS)
+                {
+                    mealsJTextField.requestFocus();
+                    mealsJTextField.selectAll();
+                    throw new ArithmeticException();
+                }
             }
-        } catch (NumberFormatException exp)
+            if (!wifiJTextField.getText().isEmpty())
+            {
+                msg = "Please pick a positive number below " + twoDecimal.format(MAX_COSTS)
+                        + "for '" + wifiJLabel.getText().replace(':', '\'');
+                try
+                {
+                    booWifi = true;
+                    wifi = Double.parseDouble(wifiJTextField.getText());
+                } catch (NumberFormatException exp)
+                {
+                    //Handles thrown exception
+                    JOptionPane.showMessageDialog(null, msg, "Input Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    wifiJTextField.requestFocus();
+                    wifiJTextField.selectAll();
+                }
+                if (wifi < 0 || wifi > MAX_COSTS)
+                {
+                    wifiJTextField.requestFocus();
+                    wifiJTextField.selectAll();
+                    throw new ArithmeticException();
+                }
+            }
+            if (!miscJTextField.getText().isEmpty())
+            {
+                msg = "Please pick a positive number below " + twoDecimal.format(MAX_COSTS)
+                        + "for '" + miscJLabel.getText().replace(':', '\'');
+                try
+                {
+                    booMisc = true;
+                    misc = Double.parseDouble(miscJTextField.getText());
+                } catch (NumberFormatException exp)
+                {
+                    //Handles thrown exception
+                    JOptionPane.showMessageDialog(null, msg, "Input Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    miscJTextField.requestFocus();
+                    miscJTextField.selectAll();
+                }
+                if (misc < 0 || misc > MAX_COSTS)
+                {
+                    miscJTextField.requestFocus();
+                    miscJTextField.selectAll();
+                    throw new ArithmeticException();
+                }
+            }
+
+            if (paradiseJRadioButton.isSelected())
+            {
+                room = CostDataManager.rooms.paradise;
+            } else if (atlantisJRadioButton.isSelected())
+            {
+                room = CostDataManager.rooms.atlantis;
+            } else if (orcasJRadioButton.isSelected())
+            {
+                room = CostDataManager.rooms.orcas;
+            } else
+            {
+                room = CostDataManager.rooms.paradise;
+            }
+
+            cdm = new CostDataManager(meals, wifi, misc,
+                    Integer.parseInt(nightsJSpinner.getValue().toString()), discount, room);
+            receiptMaker.append(customerJComboBox.getSelectedItem().toString()
+                    + "'s Itemized Bill\n");
+            receiptMaker.append(padSpaces("Items", "Charges") + "\n");
+            receiptMaker.append(padSpaces("~~~~~", "~~~~~~~") + "\n");
+            receiptMaker.append(padSpaces("Room Charges:",
+                    twoDecimal.format(cdm.getRoomCost())) + "\n");
+            if (discount)
+            {
+                receiptMaker.append(padSpaces("Manager Discretion:",
+                        twoDecimal.format(cdm.getDiscount())) + "\n");
+            } else
+            {
+                skips++;
+            }
+
+            if (booMeals)
+            {
+                receiptMaker.append(padSpaces("Special Meals:",
+                        twoDecimal.format(meals)) + "\n");
+            } else
+            {
+                skips++;
+            }
+
+            if (booWifi)
+            {
+                receiptMaker.append(padSpaces("Internet Wi-Fi:",
+                        twoDecimal.format(wifi)) + "\n");
+            } else
+            {
+                skips++;
+            }
+
+            if (booMisc)
+            {
+                receiptMaker.append(padSpaces("Miscelaneous:",
+                        twoDecimal.format(misc)) + "\n");
+            } else
+            {
+                skips++;
+            }
+
+            for (int i = 0; i < skips - 1; i++)
+            {
+                receiptMaker.append("\n");
+            }
+
+            receiptMaker.append(padSpaces("Subtotal:",
+                    twoDecimal.format(cdm.calcTotal())) + "\n");
+            receiptMaker.append(padSpaces("Taxes (8%):",
+                    twoDecimal.format(cdm.calcTotal() * cdm.getTAX())) + "\n");
+            receiptMaker.append("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            receiptMaker.append(padSpaces("Total:",
+                    twoDecimal.format(cdm.calcTotal() + (cdm.calcTotal() * cdm.getTAX()))));
+
+            receiptJTextArea.setText(receiptMaker.toString());
+
+        } catch (ArithmeticException exp)
         {
             //Handles thrown exception
-            JOptionPane.showMessageDialog(null, msg, "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, msg, "Out-Of-Range Error", JOptionPane.ERROR_MESSAGE);
+        }
 
-
-        } 
-        
     }//GEN-LAST:event_calculateJButtonActionPerformed
 
     private void exitJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_exitJButtonActionPerformed
@@ -581,7 +710,7 @@ public class OrcaGUI extends javax.swing.JFrame
 
     private StringBuffer padSpaces(String first, String second)
     {
-        final int FIRST_SPACES = 26, SECOND_SPACES = 26;
+        final int FIRST_SPACES = 25, SECOND_SPACES = 12;
         StringBuffer line = new StringBuffer();
         int numberSpaces = FIRST_SPACES - first.length();
         int numberSpaces2 = SECOND_SPACES - second.length();
@@ -600,9 +729,12 @@ public class OrcaGUI extends javax.swing.JFrame
 
     private void clear()
     {
+        //get current date time with Date()
+        Date date = new Date();
+
         dateJTextField.setText(dateFormat.format(date));
         timeJTextField.setText(timeFormat.format(date.getTime()));
-        customerJComboBox.setSelectedItem(0);//***
+        loadSpinner();
         nightsJSpinner.setValue(1);
         paradiseJRadioButton.setSelected(true);
         managerJCheckBox.setSelected(false);
@@ -611,6 +743,32 @@ public class OrcaGUI extends javax.swing.JFrame
         miscJTextField.setText("");
         receiptJTextArea.setText("");
         customerJComboBox.requestFocus();
+    }
+
+    private void loadSpinner()
+    {
+        try
+        {
+            freader = new FileReader("src//Customers.txt");
+            inputFile = new BufferedReader(freader);
+
+            // Read the first name from the file.
+            String customerName = inputFile.readLine();
+
+            customerJComboBox.removeAllItems();
+            // Add customer name to JComboBox
+            while (customerName != null)
+            {
+                customerJComboBox.addItem(customerName);
+                customerName = inputFile.readLine();
+            }
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch reading error
+        {
+            exp.printStackTrace();
+        }
     }
 
     /**
