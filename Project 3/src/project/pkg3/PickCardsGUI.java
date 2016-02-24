@@ -138,6 +138,13 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         homeJButton.setBackground(new java.awt.Color(255, 0, 51));
         homeJButton.setText("Quit");
+        homeJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                homeJButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout controlsJPanelLayout = new javax.swing.GroupLayout(controlsJPanel);
         controlsJPanel.setLayout(controlsJPanelLayout);
@@ -224,6 +231,11 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void homeJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_homeJButtonActionPerformed
+    {//GEN-HEADEREND:event_homeJButtonActionPerformed
+       System.exit(0);
+    }//GEN-LAST:event_homeJButtonActionPerformed
 
     /**
      * @param args the command line arguments
