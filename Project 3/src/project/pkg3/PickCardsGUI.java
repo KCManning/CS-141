@@ -298,10 +298,10 @@ public class PickCardsGUI extends javax.swing.JFrame
         
         DeckOfCards.reset();
         
-        String pick1[] = new String[PAIR];
+        /*String pick1[] = new String[PAIR];
         String pick2[] = new String[PAIR];
         String pick3[] = new String[PAIR];
-        String pick4[] = new String[PAIR];
+        String pick4[] = new String[PAIR];*/
         
         String cards[] = DeckOfCards.getSet();
         
