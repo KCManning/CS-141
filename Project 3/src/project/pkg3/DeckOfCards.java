@@ -58,48 +58,48 @@ public class DeckOfCards
 
         do
         {
-            do
+            if (remove && pick1[0].equalsIgnoreCase(pick2[0]))
             {
-                if (pick1[0].equalsIgnoreCase(pick2[0]))
-                {
-                    discardPile.add(pick2[0] + pick2[1]);
-                }
-                pick2 = DeckOfCards.getCard();
+                discardPile.add(pick2[0] + pick2[1]);
+            }
+            pick2 = DeckOfCards.getCard();
+            if (!remove || !discardPile.contains(pick2[0] + pick2[1]))
+            {
                 draws++;
-            } while (pick1[0].equalsIgnoreCase(pick2[0]));
-        } while (remove && discardPile.contains(pick2[0] + pick2[1]));
+            }
+        } while (pick1[0].equalsIgnoreCase(pick2[0]));
 
         do
         {
-            do
+            if (remove && pick1[0].equalsIgnoreCase(pick3[0])
+                    || pick2[0].equalsIgnoreCase(pick3[0]))
             {
-                if (pick1[0].equalsIgnoreCase(pick3[0])
-                        || pick2[0].equalsIgnoreCase(pick3[0]))
-                {
-                    discardPile.add(pick3[0] + pick3[1]);
-                }
-                pick3 = DeckOfCards.getCard();
+                discardPile.add(pick3[0] + pick3[1]);
+            }
+            pick3 = DeckOfCards.getCard();
+            if (!remove || discardPile.contains(pick3[0] + pick3[1]))
+            {
                 draws++;
-            } while (pick1[0].equalsIgnoreCase(pick3[0])
-                    || pick2[0].equalsIgnoreCase(pick3[0]));
-        } while (remove && discardPile.contains(pick3[0] + pick3[1]));
+            }
+        } while (pick1[0].equalsIgnoreCase(pick3[0])
+                || pick2[0].equalsIgnoreCase(pick3[0]));
 
         do
         {
-            do
-            {
-                if (pick1[0].equalsIgnoreCase(pick4[0])
-                        || pick2[0].equalsIgnoreCase(pick4[0])
-                        || pick3[0].equalsIgnoreCase(pick4[0]))
-                {
-                    discardPile.add(pick3[0] + pick3[1]);
-                }
-                pick4 = DeckOfCards.getCard();
-                draws++;
-            } while (pick1[0].equalsIgnoreCase(pick4[0])
+            if (remove && pick1[0].equalsIgnoreCase(pick4[0])
                     || pick2[0].equalsIgnoreCase(pick4[0])
-                    || pick3[0].equalsIgnoreCase(pick4[0]));
-        } while (remove && discardPile.contains(pick3[0] + pick3[1]));
+                    || pick3[0].equalsIgnoreCase(pick4[0]))
+            {
+                discardPile.add(pick3[0] + pick3[1]);
+            }
+            pick4 = DeckOfCards.getCard();
+            if (!remove || discardPile.contains(pick3[0] + pick3[1]))
+            {
+                draws++;
+            }
+        } while (pick1[0].equalsIgnoreCase(pick4[0])
+                || pick2[0].equalsIgnoreCase(pick4[0])
+                || pick3[0].equalsIgnoreCase(pick4[0]));
 
         cards[0] = pick1[0] + "_" + pick1[1];
         cards[1] = pick2[0] + "_" + pick2[1];

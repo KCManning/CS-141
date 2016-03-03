@@ -20,6 +20,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Print"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="fileJSeparator">
             </MenuItem>
@@ -51,6 +54,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="See Stats"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="statsJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="printStatsJMenuItem">
               <Properties>
@@ -94,11 +100,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Instructions"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="instructionsJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="aboutJMenuItem">
               <Properties>
                 <Property name="text" type="java.lang.String" value="About"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutJMenuItemActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -153,11 +165,11 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cardGroupJPanel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="cardGroupJPanel" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="dataJLabel" min="-2" pref="160" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="picksJLabel" min="-2" pref="160" max="-2" attributes="0"/>
+                          <Component id="drawsJLabel" min="-2" pref="160" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -173,11 +185,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cardGroupJPanel1" min="-2" max="-2" attributes="0"/>
+                  <Component id="cardGroupJPanel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="dataJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="picksJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="drawsJLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="controlsJPanel" min="-2" max="-2" attributes="0"/>
@@ -187,7 +199,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JPanel" name="cardGroupJPanel1">
+        <Container class="javax.swing.JPanel" name="cardGroupJPanel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
@@ -277,7 +289,7 @@
             <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="picksJLabel">
+        <Component class="javax.swing.JLabel" name="drawsJLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="13" style="1"/>
@@ -285,7 +297,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="33" green="33" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="7"/>
+            <Property name="text" type="java.lang.String" value="0"/>
             <Property name="horizontalTextPosition" type="int" value="4"/>
           </Properties>
         </Component>
@@ -347,6 +359,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Print"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printJButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="saveJButton">
               <Properties>
@@ -355,6 +370,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Save"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveJButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="homeJButton">
               <Properties>

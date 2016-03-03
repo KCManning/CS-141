@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
  */
 public class PickCardsGUI extends javax.swing.JFrame
 {
+
     final short PAIR = 2;
 
     /**
@@ -23,11 +24,13 @@ public class PickCardsGUI extends javax.swing.JFrame
     public PickCardsGUI()
     {
         initComponents();
-         this.setLocationRelativeTo(null);
+
+        this.setLocationRelativeTo(null);
         //set default button
         this.getRootPane().setDefaultButton(goJButton);
         //set icon
-        this.setIconImage(Toolkit.getDefaultToolkit().getImage("CardImages//54.png"));
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src//CardImages//b2fh.png"));
+        saveJButton.setEnabled(false);
     }
 
     /**
@@ -42,13 +45,13 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         modeJbuttonGroup = new javax.swing.ButtonGroup();
         bgJPanel = new javax.swing.JPanel();
-        cardGroupJPanel1 = new javax.swing.JPanel();
+        cardGroupJPanel = new javax.swing.JPanel();
         card1JLabel = new javax.swing.JLabel();
         card2JLabel = new javax.swing.JLabel();
         card3JLabel = new javax.swing.JLabel();
         card4JLabel = new javax.swing.JLabel();
         dataJLabel = new javax.swing.JLabel();
-        picksJLabel = new javax.swing.JLabel();
+        drawsJLabel = new javax.swing.JLabel();
         controlsJPanel = new javax.swing.JPanel();
         goJButton = new javax.swing.JButton();
         printJButton = new javax.swing.JButton();
@@ -81,9 +84,9 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         bgJPanel.setBackground(new java.awt.Color(0, 0, 0));
 
-        cardGroupJPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        cardGroupJPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Successful Cards:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(255, 0, 51))); // NOI18N
-        cardGroupJPanel1.setForeground(new java.awt.Color(255, 0, 51));
+        cardGroupJPanel.setBackground(new java.awt.Color(0, 0, 0));
+        cardGroupJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Successful Cards:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(255, 0, 51))); // NOI18N
+        cardGroupJPanel.setForeground(new java.awt.Color(255, 0, 51));
 
         card1JLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CardImages/b2fv.png"))); // NOI18N
         card1JLabel.setText("jLabel1");
@@ -97,11 +100,11 @@ public class PickCardsGUI extends javax.swing.JFrame
         card4JLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/CardImages/b2fv.png"))); // NOI18N
         card4JLabel.setText("jLabel1");
 
-        javax.swing.GroupLayout cardGroupJPanel1Layout = new javax.swing.GroupLayout(cardGroupJPanel1);
-        cardGroupJPanel1.setLayout(cardGroupJPanel1Layout);
-        cardGroupJPanel1Layout.setHorizontalGroup(
-            cardGroupJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardGroupJPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout cardGroupJPanelLayout = new javax.swing.GroupLayout(cardGroupJPanel);
+        cardGroupJPanel.setLayout(cardGroupJPanelLayout);
+        cardGroupJPanelLayout.setHorizontalGroup(
+            cardGroupJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardGroupJPanelLayout.createSequentialGroup()
                 .addComponent(card1JLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(card2JLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -110,9 +113,9 @@ public class PickCardsGUI extends javax.swing.JFrame
                 .addGap(18, 18, 18)
                 .addComponent(card4JLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        cardGroupJPanel1Layout.setVerticalGroup(
-            cardGroupJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cardGroupJPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        cardGroupJPanelLayout.setVerticalGroup(
+            cardGroupJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cardGroupJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(card1JLabel)
                 .addComponent(card4JLabel)
                 .addComponent(card2JLabel)
@@ -125,10 +128,10 @@ public class PickCardsGUI extends javax.swing.JFrame
         dataJLabel.setText("Number Of Picks:");
         dataJLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        picksJLabel.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
-        picksJLabel.setForeground(new java.awt.Color(255, 51, 51));
-        picksJLabel.setText("7");
-        picksJLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        drawsJLabel.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        drawsJLabel.setForeground(new java.awt.Color(255, 51, 51));
+        drawsJLabel.setText("0");
+        drawsJLabel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
         controlsJPanel.setBackground(new java.awt.Color(0, 0, 0));
         controlsJPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Controls:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 13), new java.awt.Color(251, 0, 51))); // NOI18N
@@ -145,9 +148,23 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         printJButton.setBackground(new java.awt.Color(255, 0, 51));
         printJButton.setText("Print");
+        printJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJButtonActionPerformed(evt);
+            }
+        });
 
         saveJButton.setBackground(new java.awt.Color(255, 0, 51));
         saveJButton.setText("Save");
+        saveJButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                saveJButtonActionPerformed(evt);
+            }
+        });
 
         homeJButton.setBackground(new java.awt.Color(255, 0, 51));
         homeJButton.setText("Quit");
@@ -188,11 +205,11 @@ public class PickCardsGUI extends javax.swing.JFrame
             .addGroup(bgJPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cardGroupJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cardGroupJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgJPanelLayout.createSequentialGroup()
                         .addComponent(dataJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(picksJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(drawsJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgJPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -203,11 +220,11 @@ public class PickCardsGUI extends javax.swing.JFrame
             bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cardGroupJPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cardGroupJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataJLabel)
-                    .addComponent(picksJLabel))
+                    .addComponent(drawsJLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(controlsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -219,6 +236,13 @@ public class PickCardsGUI extends javax.swing.JFrame
         fileJMenu.add(saveJMenuItem);
 
         printJMenuItem.setText("Print");
+        printJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(printJMenuItem);
         fileJMenu.add(fileJSeparator);
 
@@ -237,6 +261,13 @@ public class PickCardsGUI extends javax.swing.JFrame
         actionsJMenu.add(logJMenuItem);
 
         statsJMenuItem.setText("See Stats");
+        statsJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                statsJMenuItemActionPerformed(evt);
+            }
+        });
         actionsJMenu.add(statsJMenuItem);
 
         printStatsJMenuItem.setText("Print Stats");
@@ -263,9 +294,23 @@ public class PickCardsGUI extends javax.swing.JFrame
         helpJMenu.setText("Help");
 
         instructionsJMenuItem.setText("Instructions");
+        instructionsJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                instructionsJMenuItemActionPerformed(evt);
+            }
+        });
         helpJMenu.add(instructionsJMenuItem);
 
         aboutJMenuItem.setText("About");
+        aboutJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                aboutJMenuItemActionPerformed(evt);
+            }
+        });
         helpJMenu.add(aboutJMenuItem);
 
         mainJMenuBar.add(helpJMenu);
@@ -288,44 +333,60 @@ public class PickCardsGUI extends javax.swing.JFrame
 
     private void homeJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_homeJButtonActionPerformed
     {//GEN-HEADEREND:event_homeJButtonActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_homeJButtonActionPerformed
 
     private void goJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goJButtonActionPerformed
     {//GEN-HEADEREND:event_goJButtonActionPerformed
-        final String FILEPATH = "CardImages//";
+        final String FILEPATH = "src//CardImages//";
         final String EXTENSION = ".png";
-        
+
         DeckOfCards.reset();
-        
-        /*String pick1[] = new String[PAIR];
-        String pick2[] = new String[PAIR];
-        String pick3[] = new String[PAIR];
-        String pick4[] = new String[PAIR];*/
-        
+
         String cards[] = DeckOfCards.getSet();
-        
-        /*int tries = 0;
-        
-        do{
-        
-             pick1 = DeckOfCards.getCard();
-             pick2 = DeckOfCards.getCard();
-             pick3 = DeckOfCards.getCard();
-             pick4 = DeckOfCards.getCard();
-                         
-            tries++;
-           }while(DeckOfCards.checkMultiple(pick1, pick2, pick3, pick4));*/
 
         card1JLabel.setIcon(new ImageIcon(FILEPATH + cards[0] + EXTENSION));
         card2JLabel.setIcon(new ImageIcon(FILEPATH + cards[1] + EXTENSION));
         card3JLabel.setIcon(new ImageIcon(FILEPATH + cards[2] + EXTENSION));
         card4JLabel.setIcon(new ImageIcon(FILEPATH + cards[3] + EXTENSION));
-        
-        picksJLabel.setText(Integer.toString(DeckOfCards.draws));
-        
+
+        drawsJLabel.setText(Integer.toString(DeckOfCards.draws));
+        saveJButton.setEnabled(true);
+
 
     }//GEN-LAST:event_goJButtonActionPerformed
+
+    private void instructionsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_instructionsJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_instructionsJMenuItemActionPerformed
+        //DataManager.helpMenu("Instructions");
+        DataManager.infoPop(instructionsJMenuItem.getText());
+    }//GEN-LAST:event_instructionsJMenuItemActionPerformed
+
+    private void aboutJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_aboutJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_aboutJMenuItemActionPerformed
+        DataManager.infoPop(aboutJMenuItem.getText());
+    }//GEN-LAST:event_aboutJMenuItemActionPerformed
+
+    private void saveJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJButtonActionPerformed
+    {//GEN-HEADEREND:event_saveJButtonActionPerformed
+        DataManager.save(drawsJLabel.getText());
+        saveJButton.setEnabled(false);
+    }//GEN-LAST:event_saveJButtonActionPerformed
+
+    private void statsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_statsJMenuItemActionPerformed
+        DataManager.stats();
+    }//GEN-LAST:event_statsJMenuItemActionPerformed
+
+    private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
+    {//GEN-HEADEREND:event_printJButtonActionPerformed
+        PrintUtilities.printComponent(this);
+    }//GEN-LAST:event_printJButtonActionPerformed
+
+    private void printJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_printJMenuItemActionPerformed
+        PrintUtilities.printComponent(cardGroupJPanel);
+    }//GEN-LAST:event_printJMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,6 +433,7 @@ public class PickCardsGUI extends javax.swing.JFrame
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutJMenuItem;
     private javax.swing.JMenu actionsJMenu;
@@ -382,10 +444,11 @@ public class PickCardsGUI extends javax.swing.JFrame
     private javax.swing.JLabel card2JLabel;
     private javax.swing.JLabel card3JLabel;
     private javax.swing.JLabel card4JLabel;
-    private javax.swing.JPanel cardGroupJPanel1;
+    private javax.swing.JPanel cardGroupJPanel;
     private javax.swing.JMenuItem clearJMenuItem;
     private javax.swing.JPanel controlsJPanel;
     private javax.swing.JLabel dataJLabel;
+    private javax.swing.JLabel drawsJLabel;
     private javax.swing.JMenu fileJMenu;
     private javax.swing.JPopupMenu.Separator fileJSeparator;
     private javax.swing.JButton goJButton;
@@ -397,7 +460,6 @@ public class PickCardsGUI extends javax.swing.JFrame
     private javax.swing.JMenuItem logJMenuItem;
     private javax.swing.JMenuBar mainJMenuBar;
     private javax.swing.ButtonGroup modeJbuttonGroup;
-    private javax.swing.JLabel picksJLabel;
     private javax.swing.JButton printJButton;
     private javax.swing.JMenuItem printJMenuItem;
     private javax.swing.JMenuItem printStatsJMenuItem;
