@@ -53,7 +53,7 @@ public class DeckOfCards
 
         String cards[] = new String[SET];
 
-        pick1 = DeckOfCards.getCard();
+        pick1 = getCard();
         draws++;
 
         do
@@ -62,7 +62,7 @@ public class DeckOfCards
             {
                 discardPile.add(pick2[0] + pick2[1]);
             }
-            pick2 = DeckOfCards.getCard();
+            pick2 = getCard();
             if (!remove || !discardPile.contains(pick2[0] + pick2[1]))
             {
                 draws++;
@@ -76,14 +76,14 @@ public class DeckOfCards
             {
                 discardPile.add(pick3[0] + pick3[1]);
             }
-            pick3 = DeckOfCards.getCard();
+            pick3 = getCard();
             if (!remove || discardPile.contains(pick3[0] + pick3[1]))
             {
                 draws++;
             }
         } while (pick1[0].equalsIgnoreCase(pick3[0])
                 || pick2[0].equalsIgnoreCase(pick3[0]));
-
+        
         do
         {
             if (remove && pick1[0].equalsIgnoreCase(pick4[0])
@@ -92,7 +92,7 @@ public class DeckOfCards
             {
                 discardPile.add(pick3[0] + pick3[1]);
             }
-            pick4 = DeckOfCards.getCard();
+            pick4 = getCard();
             if (!remove || discardPile.contains(pick3[0] + pick3[1]))
             {
                 draws++;

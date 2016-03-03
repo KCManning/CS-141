@@ -352,8 +352,6 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         drawsJLabel.setText(Integer.toString(DeckOfCards.draws));
         saveJButton.setEnabled(true);
-
-
     }//GEN-LAST:event_goJButtonActionPerformed
 
     private void instructionsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_instructionsJMenuItemActionPerformed
