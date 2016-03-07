@@ -27,7 +27,6 @@ public class DeckOfCards
     };
     static private ArrayList<String> discardPile = new ArrayList<String>();
 
-    static public boolean remove = false;
     final static short PAIR = 2;
     final static short SET = 4;
     final static short BOUNDS = 1;
@@ -43,7 +42,7 @@ public class DeckOfCards
         return card;
     }
 
-    static public String[] getSet()
+    static public String[] getSet(boolean remove)
     {
 
         String pick1[] = new String[PAIR];
@@ -77,13 +76,13 @@ public class DeckOfCards
                 discardPile.add(pick3[0] + pick3[1]);
             }
             pick3 = getCard();
-            if (!remove || discardPile.contains(pick3[0] + pick3[1]))
+            if (!remove || !discardPile.contains(pick3[0] + pick3[1]))
             {
                 draws++;
             }
         } while (pick1[0].equalsIgnoreCase(pick3[0])
                 || pick2[0].equalsIgnoreCase(pick3[0]));
-        
+
         do
         {
             if (remove && pick1[0].equalsIgnoreCase(pick4[0])
@@ -93,7 +92,7 @@ public class DeckOfCards
                 discardPile.add(pick3[0] + pick3[1]);
             }
             pick4 = getCard();
-            if (!remove || discardPile.contains(pick3[0] + pick3[1]))
+            if (!remove || !discardPile.contains(pick3[0] + pick3[1]))
             {
                 draws++;
             }

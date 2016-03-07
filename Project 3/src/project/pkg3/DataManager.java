@@ -83,12 +83,18 @@ public class DataManager
         }
     }
 
-    static public void save(String numDraws)
+    static public void save(String numDraws, boolean remove)
     {
+        String fileName = "src//Data//Stats";
+
+        if (remove)
+        {
+            fileName += "wRemove";
+        }
         try
         {
             //Prepares a file for writing
-            File file = new File("src//Data//Stats.txt");
+            File file = new File(fileName + ".txt");
             FileWriter writer = new FileWriter(file, true);
 
             //Verifies inputs are valid
@@ -110,42 +116,51 @@ public class DataManager
         }
     }//save
 
-    static public void stats()
+    static public void stats(boolean remove)
     {
-        ArrayList<String> data = loadStats();
-        int dataSet[] = new int[data.size()];
-
-        for (int i = 0; i < data.size(); i++)
-        {
-            dataSet[i] = Integer.parseInt(data.get(i));
-        }
-        
-        bubbleSort(dataSet);
-        
-        int total = 0;
-        for (int val : dataSet)
-        {
-            total += val;
-        }
-        
-        float mean = total / dataSet.length;
-        int max = dataSet[dataSet.length - 1];
-        int min = dataSet[0];
-        int median = dataSet[dataSet.length / 2];
-        int range = max - min;
-
         StringBuffer output = new StringBuffer();
-        output.append("Total Number of Cards Drawn: " + total);
-        output.append("\nFewest Cards Needed: " + min);
-        output.append("\nMost cards needed: " + max);
-        output.append("\nRange of Cards Drawn: " + range);
-        output.append("\nMedian Number of Cards Drawn: " + median);
-        output.append("\nMean Number of Cards Drawn: " + mean);
-        JOptionPane.showMessageDialog(
-                null, output, "Stats",
-                JOptionPane.INFORMATION_MESSAGE);
+        ArrayList<String> data = loadStats(remove);
+        if (!data.isEmpty())
+        {
+            int dataSet[] = new int[data.size()];
 
-    }//save
+            for (int i = 0; i < data.size(); i++)
+            {
+                dataSet[i] = Integer.parseInt(data.get(i));
+            }
+
+            bubbleSort(dataSet);
+
+            int total = 0;
+            for (int val : dataSet)
+            {
+                total += val;
+            }
+
+            float mean = total / dataSet.length;
+            int max = dataSet[dataSet.length - 1];
+            int min = dataSet[0];
+            int median = dataSet[dataSet.length / 2];
+            int range = max - min;
+
+            output.append("Total Number of Cards Drawn: " + total);
+            output.append("\nFewest Cards Needed: " + min);
+            output.append("\nMost cards needed: " + max);
+            output.append("\nRange of Cards Drawn: " + range);
+            output.append("\nMedian Number of Cards Drawn: " + median);
+            output.append("\nMean Number of Cards Drawn: " + mean);
+
+        } else
+        {
+            output.append("No stats saved. Please run then save.");
+        }
+
+            JOptionPane.showMessageDialog(
+                    null, output, "Stats",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+
+    }//stats
 
     static private void bubbleSort(int arr[])
     {
@@ -162,14 +177,20 @@ public class DataManager
                 }
             }
         }
-    }
+    }//sort
 
-    static private ArrayList<String> loadStats()
+    static private ArrayList<String> loadStats(boolean remove)
     {
+        String fileName = "src//Data//Stats";
+
+        if (remove)
+        {
+            fileName += "wRemove";
+        }
         try
         {
 
-            FileReader freader = new FileReader("src//Data//Stats.txt");
+            FileReader freader = new FileReader(fileName + ".txt");
             BufferedReader inputFile = new BufferedReader(freader);
 
             // Read the first name from the file.
@@ -191,5 +212,52 @@ public class DataManager
             exp.printStackTrace();
             return null;
         }
-    }
+    }//load
+
+    static public void clear(boolean remove)
+    {
+        String fileName = "src//Data//Stats";
+
+        if (remove)
+        {
+            fileName += "wRemove";
+        }
+        try
+        {
+            //Prepares a file for writing
+            File file = new File(fileName + ".txt");
+            FileWriter writer = new FileWriter(file);
+
+            writer.close();
+
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch writing error
+        {
+            exp.printStackTrace();
+        }
+    }//Clear
+
+    static public void log(boolean remove)
+    {
+        StringBuffer output = new StringBuffer();
+        ArrayList<String> data = loadStats(remove);
+        if (!data.isEmpty())
+        {
+            int counter = 0;
+            for (String val : data)
+            {
+                counter++;
+                output.append("Run number " + counter + " was: " + val + "\n");
+            }
+        } else
+        {
+            output.append("No log saved. Please run then save.");
+        }
+
+        JOptionPane.showMessageDialog(
+                null, output, "Log",
+                JOptionPane.INFORMATION_MESSAGE);
+    }//log
 }

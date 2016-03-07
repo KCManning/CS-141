@@ -72,8 +72,8 @@ public class PickCardsGUI extends javax.swing.JFrame
         actions_bottomJSeparator = new javax.swing.JPopupMenu.Separator();
         clearJMenuItem = new javax.swing.JMenuItem();
         settingsJMenu = new javax.swing.JMenu();
-        removeJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         keepJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
+        removeJRadioButtonMenuItem = new javax.swing.JRadioButtonMenuItem();
         helpJMenu = new javax.swing.JMenu();
         instructionsJMenuItem = new javax.swing.JMenuItem();
         aboutJMenuItem = new javax.swing.JMenuItem();
@@ -254,10 +254,24 @@ public class PickCardsGUI extends javax.swing.JFrame
         actionsJMenu.setText("Actions");
 
         goJMenuItem.setText("Go");
+        goJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                goJMenuItemActionPerformed(evt);
+            }
+        });
         actionsJMenu.add(goJMenuItem);
         actionsJMenu.add(actions_topJSeparator);
 
         logJMenuItem.setText("View Log");
+        logJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                logJMenuItemActionPerformed(evt);
+            }
+        });
         actionsJMenu.add(logJMenuItem);
 
         statsJMenuItem.setText("See Stats");
@@ -271,23 +285,38 @@ public class PickCardsGUI extends javax.swing.JFrame
         actionsJMenu.add(statsJMenuItem);
 
         printStatsJMenuItem.setText("Print Stats");
+        printStatsJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                printStatsJMenuItemActionPerformed(evt);
+            }
+        });
         actionsJMenu.add(printStatsJMenuItem);
         actionsJMenu.add(actions_bottomJSeparator);
 
         clearJMenuItem.setText("Clear Stats");
+        clearJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                clearJMenuItemActionPerformed(evt);
+            }
+        });
         actionsJMenu.add(clearJMenuItem);
 
         mainJMenuBar.add(actionsJMenu);
 
         settingsJMenu.setText("Settings");
 
-        removeJRadioButtonMenuItem.setSelected(true);
-        removeJRadioButtonMenuItem.setText("Remove Card");
-        settingsJMenu.add(removeJRadioButtonMenuItem);
-
+        modeJbuttonGroup.add(keepJRadioButtonMenuItem);
         keepJRadioButtonMenuItem.setSelected(true);
         keepJRadioButtonMenuItem.setText("Keep Card");
         settingsJMenu.add(keepJRadioButtonMenuItem);
+
+        modeJbuttonGroup.add(removeJRadioButtonMenuItem);
+        removeJRadioButtonMenuItem.setText("Remove Card");
+        settingsJMenu.add(removeJRadioButtonMenuItem);
 
         mainJMenuBar.add(settingsJMenu);
 
@@ -338,20 +367,7 @@ public class PickCardsGUI extends javax.swing.JFrame
 
     private void goJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goJButtonActionPerformed
     {//GEN-HEADEREND:event_goJButtonActionPerformed
-        final String FILEPATH = "src//CardImages//";
-        final String EXTENSION = ".png";
-
-        DeckOfCards.reset();
-
-        String cards[] = DeckOfCards.getSet();
-
-        card1JLabel.setIcon(new ImageIcon(FILEPATH + cards[0] + EXTENSION));
-        card2JLabel.setIcon(new ImageIcon(FILEPATH + cards[1] + EXTENSION));
-        card3JLabel.setIcon(new ImageIcon(FILEPATH + cards[2] + EXTENSION));
-        card4JLabel.setIcon(new ImageIcon(FILEPATH + cards[3] + EXTENSION));
-
-        drawsJLabel.setText(Integer.toString(DeckOfCards.draws));
-        saveJButton.setEnabled(true);
+        go();
     }//GEN-LAST:event_goJButtonActionPerformed
 
     private void instructionsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_instructionsJMenuItemActionPerformed
@@ -367,13 +383,13 @@ public class PickCardsGUI extends javax.swing.JFrame
 
     private void saveJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJButtonActionPerformed
     {//GEN-HEADEREND:event_saveJButtonActionPerformed
-        DataManager.save(drawsJLabel.getText());
+        DataManager.save(drawsJLabel.getText(), removeJRadioButtonMenuItem.isSelected());
         saveJButton.setEnabled(false);
     }//GEN-LAST:event_saveJButtonActionPerformed
 
     private void statsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsJMenuItemActionPerformed
     {//GEN-HEADEREND:event_statsJMenuItemActionPerformed
-        DataManager.stats();
+        DataManager.stats(removeJRadioButtonMenuItem.isSelected());
     }//GEN-LAST:event_statsJMenuItemActionPerformed
 
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
@@ -385,6 +401,44 @@ public class PickCardsGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_printJMenuItemActionPerformed
         PrintUtilities.printComponent(cardGroupJPanel);
     }//GEN-LAST:event_printJMenuItemActionPerformed
+
+    private void clearJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
+        DataManager.clear(removeJRadioButtonMenuItem.isSelected());
+    }//GEN-LAST:event_clearJMenuItemActionPerformed
+
+    private void logJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_logJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_logJMenuItemActionPerformed
+        DataManager.log(removeJRadioButtonMenuItem.isSelected());
+    }//GEN-LAST:event_logJMenuItemActionPerformed
+
+    private void goJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_goJMenuItemActionPerformed
+        go();
+    }//GEN-LAST:event_goJMenuItemActionPerformed
+
+    private void printStatsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printStatsJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_printStatsJMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_printStatsJMenuItemActionPerformed
+
+    public void go()
+    {
+        final String FILEPATH = "src//CardImages//";
+        final String EXTENSION = ".png";
+
+        DeckOfCards.reset();
+        
+        String cards[] = DeckOfCards.getSet(removeJRadioButtonMenuItem.isSelected());
+
+        card1JLabel.setIcon(new ImageIcon(FILEPATH + cards[0] + EXTENSION));
+        card2JLabel.setIcon(new ImageIcon(FILEPATH + cards[1] + EXTENSION));
+        card3JLabel.setIcon(new ImageIcon(FILEPATH + cards[2] + EXTENSION));
+        card4JLabel.setIcon(new ImageIcon(FILEPATH + cards[3] + EXTENSION));
+
+        drawsJLabel.setText(Integer.toString(DeckOfCards.draws));
+        saveJButton.setEnabled(true);
+    }
 
     /**
      * @param args the command line arguments
