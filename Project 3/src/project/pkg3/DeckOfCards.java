@@ -108,32 +108,6 @@ public class DeckOfCards
         return cards;
     }
 
-    static public boolean checkMultiple(String pick1[], String pick2[], String pick3[], String pick4[])
-    {
-        if (pick1[0].equalsIgnoreCase(pick2[0]))
-        {
-            return true;
-        } else if (pick1[0].equalsIgnoreCase(pick3[0]))
-        {
-            return true;
-        } else if (pick1[0].equalsIgnoreCase(pick4[0]))
-        {
-            return true;
-        } else if (pick2[0].equalsIgnoreCase(pick3[0]))
-        {
-            return true;
-        } else if (pick2[0].equalsIgnoreCase(pick4[0]))
-        {
-            return true;
-        } else if (pick3[0].equalsIgnoreCase(pick4[0]))
-        {
-            return true;
-        } else
-        {
-            return false;
-        }
-    }
-
     static public void reset()
     {
         draws = 0;

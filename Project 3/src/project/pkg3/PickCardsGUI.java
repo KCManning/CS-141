@@ -57,8 +57,11 @@ public class PickCardsGUI extends javax.swing.JFrame
         printJButton = new javax.swing.JButton();
         saveJButton = new javax.swing.JButton();
         homeJButton = new javax.swing.JButton();
+        dataJLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         mainJMenuBar = new javax.swing.JMenuBar();
         fileJMenu = new javax.swing.JMenu();
+        playerJMenuItem = new javax.swing.JMenuItem();
         saveJMenuItem = new javax.swing.JMenuItem();
         printJMenuItem = new javax.swing.JMenuItem();
         fileJSeparator = new javax.swing.JPopupMenu.Separator();
@@ -198,22 +201,34 @@ public class PickCardsGUI extends javax.swing.JFrame
                 .addComponent(homeJButton))
         );
 
+        dataJLabel1.setFont(new java.awt.Font("Tahoma", 1, 13)); // NOI18N
+        dataJLabel1.setForeground(new java.awt.Color(255, 51, 51));
+        dataJLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        dataJLabel1.setText("Player:");
+        dataJLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout bgJPanelLayout = new javax.swing.GroupLayout(bgJPanel);
         bgJPanel.setLayout(bgJPanelLayout);
         bgJPanelLayout.setHorizontalGroup(
             bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bgJPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgJPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(controlsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cardGroupJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(bgJPanelLayout.createSequentialGroup()
-                        .addComponent(dataJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(drawsJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgJPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(controlsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(dataJLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drawsJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataJLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         bgJPanelLayout.setVerticalGroup(
@@ -224,13 +239,25 @@ public class PickCardsGUI extends javax.swing.JFrame
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataJLabel)
-                    .addComponent(drawsJLabel))
+                    .addComponent(drawsJLabel)
+                    .addComponent(dataJLabel1)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(controlsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         fileJMenu.setText("File");
+
+        playerJMenuItem.setText("Add New Player");
+        playerJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                playerJMenuItemActionPerformed(evt);
+            }
+        });
+        fileJMenu.add(playerJMenuItem);
 
         saveJMenuItem.setText("Save");
         fileJMenu.add(saveJMenuItem);
@@ -422,6 +449,11 @@ public class PickCardsGUI extends javax.swing.JFrame
         // TODO add your handling code here:
     }//GEN-LAST:event_printStatsJMenuItemActionPerformed
 
+    private void playerJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_playerJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_playerJMenuItemActionPerformed
+                new InsertPlayerGUI().setVisible(true);
+    }//GEN-LAST:event_playerJMenuItemActionPerformed
+
     public void go()
     {
         final String FILEPATH = "src//CardImages//";
@@ -500,6 +532,7 @@ public class PickCardsGUI extends javax.swing.JFrame
     private javax.swing.JMenuItem clearJMenuItem;
     private javax.swing.JPanel controlsJPanel;
     private javax.swing.JLabel dataJLabel;
+    private javax.swing.JLabel dataJLabel1;
     private javax.swing.JLabel drawsJLabel;
     private javax.swing.JMenu fileJMenu;
     private javax.swing.JPopupMenu.Separator fileJSeparator;
@@ -508,10 +541,12 @@ public class PickCardsGUI extends javax.swing.JFrame
     private javax.swing.JMenu helpJMenu;
     private javax.swing.JButton homeJButton;
     private javax.swing.JMenuItem instructionsJMenuItem;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JRadioButtonMenuItem keepJRadioButtonMenuItem;
     private javax.swing.JMenuItem logJMenuItem;
     private javax.swing.JMenuBar mainJMenuBar;
     private javax.swing.ButtonGroup modeJbuttonGroup;
+    private javax.swing.JMenuItem playerJMenuItem;
     private javax.swing.JButton printJButton;
     private javax.swing.JMenuItem printJMenuItem;
     private javax.swing.JMenuItem printStatsJMenuItem;

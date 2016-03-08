@@ -260,4 +260,10 @@ public class DataManager
                 null, output, "Log",
                 JOptionPane.INFORMATION_MESSAGE);
     }//log
+    
+        static public void savePlayer(String numDraws)
+    {
+            
+    }
+    
 }
