@@ -6,8 +6,10 @@
 package project.pkg3;
 
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +18,7 @@ import javax.swing.ImageIcon;
 public class PickCardsGUI extends javax.swing.JFrame
 {
 
-    final short PAIR = 2;
+    static Player player = new Player();
 
     /**
      * Creates new form PickCardsGUI
@@ -24,13 +26,13 @@ public class PickCardsGUI extends javax.swing.JFrame
     public PickCardsGUI()
     {
         initComponents();
-
         this.setLocationRelativeTo(null);
         //set default button
         this.getRootPane().setDefaultButton(goJButton);
         //set icon
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("src//CardImages//b2fh.png"));
         saveJButton.setEnabled(false);
+
         loadSpinner();
     }
 
@@ -224,19 +226,18 @@ public class PickCardsGUI extends javax.swing.JFrame
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgJPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(controlsJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(bgJPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(bgJPanelLayout.createSequentialGroup()
-                            .addComponent(cardGroupJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(bgJPanelLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addComponent(dataJLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(drawsJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(playerJLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(playersJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(bgJPanelLayout.createSequentialGroup()
+                        .addComponent(cardGroupJPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(bgJPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(dataJLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(drawsJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(playerJLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(playersJComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         bgJPanelLayout.setVerticalGroup(
@@ -269,6 +270,13 @@ public class PickCardsGUI extends javax.swing.JFrame
 
         saveJMenuItem.setText("Save");
         saveJMenuItem.setEnabled(false);
+        saveJMenuItem.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                saveJMenuItemActionPerformed(evt);
+            }
+        });
         fileJMenu.add(saveJMenuItem);
 
         printJMenuItem.setText("Print");
@@ -425,13 +433,14 @@ public class PickCardsGUI extends javax.swing.JFrame
 
     private void saveJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJButtonActionPerformed
     {//GEN-HEADEREND:event_saveJButtonActionPerformed
-        DataManager.save(drawsJLabel.getText(), removeJRadioButtonMenuItem.isSelected(), playersJComboBox.getSelectedItem().toString());
-        saveJButton.setEnabled(false);
+        save();
     }//GEN-LAST:event_saveJButtonActionPerformed
 
     private void statsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsJMenuItemActionPerformed
     {//GEN-HEADEREND:event_statsJMenuItemActionPerformed
-        DataManager.stats(removeJRadioButtonMenuItem.isSelected(), playersJComboBox.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(
+                null, player.getStats(playersJComboBox.getSelectedIndex(), removeJRadioButtonMenuItem.isSelected()), "Stats",
+                JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_statsJMenuItemActionPerformed
 
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
@@ -469,6 +478,19 @@ public class PickCardsGUI extends javax.swing.JFrame
         new InsertPlayerGUI(this).setVisible(true);
     }//GEN-LAST:event_playerJMenuItemActionPerformed
 
+    private void saveJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJMenuItemActionPerformed
+    {//GEN-HEADEREND:event_saveJMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveJMenuItemActionPerformed
+
+    public void save()
+    {
+        DataManager.save(drawsJLabel.getText(), removeJRadioButtonMenuItem.isSelected(), playersJComboBox.getSelectedItem().toString());
+        saveJButton.setEnabled(false);
+        saveJMenuItem.setEnabled(false);
+        player = new Player();
+    }
+
     public void go()
     {
         final String FILEPATH = "src//CardImages//";
@@ -484,7 +506,7 @@ public class PickCardsGUI extends javax.swing.JFrame
         card4JLabel.setIcon(new ImageIcon(FILEPATH + cards[3] + EXTENSION));
 
         drawsJLabel.setText(Integer.toString(DeckOfCards.draws));
-        
+
         saveJButton.setEnabled(true);
         saveJMenuItem.setEnabled(true);
         printJMenuItem.setEnabled(true);
@@ -542,6 +564,9 @@ public class PickCardsGUI extends javax.swing.JFrame
             statsJMenuItem.setEnabled(true);
             printStatsJMenuItem.setEnabled(true);
             clearJMenuItem.setEnabled(true);
+        } else
+        {
+            new InsertPlayerGUI(this).setVisible(true);
         }
     }
 
@@ -586,6 +611,7 @@ public class PickCardsGUI extends javax.swing.JFrame
             public void run()
             {
                 new PickCardsGUI().setVisible(true);
+
             }
         });
     }

@@ -2,9 +2,11 @@ Built by Kevin Manning in 2016 for CS& 141
 
 Based on code and requirements provided by Nico Cuvelski
 
-This program utilizes information about our guests to tally
-their expenses and calculate the total cost of their stay
-with us.
+This program provides information about the number of tries
+required to draw 4 cards of DIFFERING suites. It can be
+configured to provide this information based on shuffling
+used cards back into the deck, or removing them from play
+to try again (Settings option).
 
-It also allows you to print the itemized reciept.
-For more intormation, please check the instructions.
+This data is stored based on the player playing, and can
+provide a log of games previously played.

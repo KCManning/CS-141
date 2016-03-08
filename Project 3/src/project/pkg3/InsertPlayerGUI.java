@@ -47,13 +47,13 @@ public class InsertPlayerGUI extends javax.swing.JFrame
     public InsertPlayerGUI(PickCardsGUI parent)
     {
         this.parent = parent;
-        parent.dispose();
         initComponents();
         this.setLocationRelativeTo(null);
         //set default button
         this.getRootPane().setDefaultButton(saveJButton);
         //set icon
         this.setIconImage(Toolkit.getDefaultToolkit().getImage("src//CardImages//b1fh.png"));
+        parent.dispose();
     }
 
     /**
@@ -84,6 +84,7 @@ public class InsertPlayerGUI extends javax.swing.JFrame
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Customer Input");
+        setAlwaysOnTop(true);
         setResizable(false);
 
         bgJPanel1.setBackground(new java.awt.Color(153, 204, 255));

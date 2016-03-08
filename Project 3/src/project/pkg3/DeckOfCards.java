@@ -17,17 +17,17 @@ public class DeckOfCards
 
     static Random rng = new Random();
 
-    static private String suites[] =
+    final static private String SUITES[] =
     {
         "Clubs", "Hearts", "Spades", "Diamonds"
     };
-    static private int values[] =
+    final static private int VALUES[] =
     {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13
     };
     static private ArrayList<String> discardPile = new ArrayList<String>();
 
-    final static short PAIR = 2;
+    final public static short PAIR = 2;
     final static short SET = 4;
     final static short BOUNDS = 1;
     public static int draws = 0;
@@ -36,8 +36,8 @@ public class DeckOfCards
     static public String[] getCard()
     {
         String card[] = new String[PAIR];
-        card[0] = suites[rng.nextInt(suites.length)];
-        card[1] = Integer.toString(values[rng.nextInt(values.length)]);
+        card[0] = SUITES[rng.nextInt(SUITES.length)];
+        card[1] = Integer.toString(VALUES[rng.nextInt(VALUES.length)]);
 
         return card;
     }

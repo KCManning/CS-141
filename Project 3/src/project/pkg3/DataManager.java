@@ -85,7 +85,7 @@ public class DataManager
 
     static public void save(String numDraws, boolean remove, String name)
     {
-        String fileName = "src//Data//" + name + "Stats";
+        String fileName = "src//Data//" + name + "//Stats";
 
         if (remove)
         {
@@ -116,7 +116,7 @@ public class DataManager
         }
     }//save
 
-    static public void stats(boolean remove, String name)
+    static public StringBuffer stats(boolean remove, String name)
     {
         final byte SQUARE = 2;
         StringBuffer output = new StringBuffer();
@@ -143,8 +143,8 @@ public class DataManager
             int min = dataSet[0];
             int median = dataSet[dataSet.length / 2];
             int range = max - min;
-            double standardDev = 0;
 
+            double standardDev = 0;
             for (int i = 0; i < dataSet.length; i++)
             {
                 dataSet[i] -= mean;
@@ -153,6 +153,7 @@ public class DataManager
 
             standardDev /= dataSet.length;
             standardDev = Math.sqrt(standardDev);
+            
 
             output.append("Total Number of Cards Drawn: " + total);
             output.append("\nFewest Cards Needed: " + min);
@@ -167,9 +168,7 @@ public class DataManager
             output.append("No stats saved. Please run then save.");
         }
 
-        JOptionPane.showMessageDialog(
-                null, output, "Stats",
-                JOptionPane.INFORMATION_MESSAGE);
+        return output;
 
     }//stats
 
@@ -192,7 +191,7 @@ public class DataManager
 
     static private ArrayList<String> loadStats(boolean remove, String name)
     {
-        String fileName = "src//Data //" + name + "//Stats";
+        String fileName = "src//Data//" + name + "//Stats";
 
         if (remove)
         {
@@ -262,6 +261,7 @@ public class DataManager
                 counter++;
                 output.append("Run number " + counter + " was: " + val + "\n");
             }
+            output.append("Total Games Played: " + counter);
         } else
         {
             output.append("No log saved. Please run then save.");
@@ -290,6 +290,8 @@ public class DataManager
                 writer = new FileWriter(file, true);
                 writer.write(playerName + "\n");
                 writer.close();
+                clear(false, playerName);
+                clear(true, playerName);
                 return true;
             } else
             {
@@ -343,7 +345,7 @@ public class DataManager
                 return players;
             } else
             {
-                JOptionPane.showMessageDialog(null, "Players' List Empty.\nPlease add players using menu option.", "Data Error",
+                JOptionPane.showMessageDialog(null, "Players' List Empty.\nPlease add player.", "Data Error",
                         JOptionPane.ERROR_MESSAGE);
             }
 
