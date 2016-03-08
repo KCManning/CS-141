@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 public class InsertPlayerGUI extends javax.swing.JFrame
 {
 
+    PickCardsGUI parent;
+
     /**
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      *
@@ -42,8 +44,10 @@ public class InsertPlayerGUI extends javax.swing.JFrame
      * @HistoryLog: 2/18/16 - Built function and called methods
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
-    public InsertPlayerGUI()
+    public InsertPlayerGUI(PickCardsGUI parent)
     {
+        this.parent = parent;
+        parent.dispose();
         initComponents();
         this.setLocationRelativeTo(null);
         //set default button
@@ -597,57 +601,28 @@ public class InsertPlayerGUI extends javax.swing.JFrame
     private void save()
     {
 
-        try
+        //Verifies inputs are valid
+        if (!fNameJTextField.getText().isEmpty())
         {
-            //Verifies the file is valid
-            //Prepares a file for writing
-            File file;
-            FileWriter writer;
-
-            //Verifies inputs are valid
-            if (!fNameJTextField.getText().isEmpty())
+            if (!lNameJTextField.getText().isEmpty())
             {
-                if (!lNameJTextField.getText().isEmpty())
+                String playerName = fNameJTextField.getText() + " "
+                        + lNameJTextField.getText();
+                //Places the data in the file, closes file and window
+                if (DataManager.savePlayer(playerName))
                 {
-                    String playerName = fNameJTextField.getText() + " "
-                            + lNameJTextField.getText();
-                    //Places the data in the file, closes file and window
-                    file = new File("src//Data//" + playerName + "//");
-                    boolean successful = file.mkdir();
-                    if (successful)
-                    {
-                        // creating the directory succeeded
-                        file = new File("src//Data//Players.txt");
-                        writer = new FileWriter(file, true);
-                        writer.write(playerName);
-                        writer.close();
-                        dispose();
-                    } else
-                    {
-                        // creating the directory failed
-                        JOptionPane.showMessageDialog(null, "Player Already Exists", "Directory Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                } else
-                {
-                    lNameJTextField.requestFocus();
-                    throw new IllegalStateException();
+                    new PickCardsGUI().setVisible(true);
+                    dispose();
                 }
             } else
             {
-                fNameJTextField.requestFocus();
+                lNameJTextField.requestFocus();
                 throw new IllegalStateException();
             }
-        } catch (FileNotFoundException exp) // catch file not found
+        } else
         {
-            exp.printStackTrace();
-        } catch (IOException exp) // catch writing error
-        {
-            exp.printStackTrace();
-        } catch (IllegalStateException exp)// catch empy text field
-        {
-            JOptionPane.showMessageDialog(null, "Please enter a first AND last name.", "Input Error",
-                    JOptionPane.ERROR_MESSAGE);
+            fNameJTextField.requestFocus();
+            throw new IllegalStateException();
         }
     }
 

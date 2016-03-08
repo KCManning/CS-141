@@ -83,9 +83,9 @@ public class DataManager
         }
     }
 
-    static public void save(String numDraws, boolean remove)
+    static public void save(String numDraws, boolean remove, String name)
     {
-        String fileName = "src//Data//Stats";
+        String fileName = "src//Data//" + name + "Stats";
 
         if (remove)
         {
@@ -116,10 +116,11 @@ public class DataManager
         }
     }//save
 
-    static public void stats(boolean remove)
+    static public void stats(boolean remove, String name)
     {
+        final byte SQUARE = 2;
         StringBuffer output = new StringBuffer();
-        ArrayList<String> data = loadStats(remove);
+        ArrayList<String> data = loadStats(remove, name);
         if (!data.isEmpty())
         {
             int dataSet[] = new int[data.size()];
@@ -142,6 +143,16 @@ public class DataManager
             int min = dataSet[0];
             int median = dataSet[dataSet.length / 2];
             int range = max - min;
+            double standardDev = 0;
+
+            for (int i = 0; i < dataSet.length; i++)
+            {
+                dataSet[i] -= mean;
+                standardDev += Math.pow(dataSet[i], SQUARE);
+            }
+
+            standardDev /= dataSet.length;
+            standardDev = Math.sqrt(standardDev);
 
             output.append("Total Number of Cards Drawn: " + total);
             output.append("\nFewest Cards Needed: " + min);
@@ -149,16 +160,16 @@ public class DataManager
             output.append("\nRange of Cards Drawn: " + range);
             output.append("\nMedian Number of Cards Drawn: " + median);
             output.append("\nMean Number of Cards Drawn: " + mean);
+            output.append("\nStandard Deviation of Cards Drawn:\n" + standardDev);
 
         } else
         {
             output.append("No stats saved. Please run then save.");
         }
 
-            JOptionPane.showMessageDialog(
-                    null, output, "Stats",
-                    JOptionPane.INFORMATION_MESSAGE);
-
+        JOptionPane.showMessageDialog(
+                null, output, "Stats",
+                JOptionPane.INFORMATION_MESSAGE);
 
     }//stats
 
@@ -179,9 +190,9 @@ public class DataManager
         }
     }//sort
 
-    static private ArrayList<String> loadStats(boolean remove)
+    static private ArrayList<String> loadStats(boolean remove, String name)
     {
-        String fileName = "src//Data//Stats";
+        String fileName = "src//Data //" + name + "//Stats";
 
         if (remove)
         {
@@ -214,9 +225,9 @@ public class DataManager
         }
     }//load
 
-    static public void clear(boolean remove)
+    static public void clear(boolean remove, String name)
     {
-        String fileName = "src//Data//Stats";
+        String fileName = "src//Data//" + name + "//Stats";
 
         if (remove)
         {
@@ -239,10 +250,10 @@ public class DataManager
         }
     }//Clear
 
-    static public void log(boolean remove)
+    static public void log(boolean remove, String name)
     {
         StringBuffer output = new StringBuffer();
-        ArrayList<String> data = loadStats(remove);
+        ArrayList<String> data = loadStats(remove, name);
         if (!data.isEmpty())
         {
             int counter = 0;
@@ -260,10 +271,90 @@ public class DataManager
                 null, output, "Log",
                 JOptionPane.INFORMATION_MESSAGE);
     }//log
-    
-        static public void savePlayer(String numDraws)
+
+    static public boolean savePlayer(String playerName)
     {
-            
-    }
-    
+        try
+        {
+            //Verifies the file is valid
+            //Prepares a file for writing
+            File file;
+            FileWriter writer;
+
+            file = new File("src//Data//" + playerName + "//");
+            boolean successful = file.mkdir();
+            if (successful)
+            {
+                // creating the directory succeeded
+                file = new File("src//Data//Players.txt");
+                writer = new FileWriter(file, true);
+                writer.write(playerName + "\n");
+                writer.close();
+                return true;
+            } else
+            {
+                // creating the directory failed
+                JOptionPane.showMessageDialog(null, "Player Already Exists", "Directory Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch writing error
+        {
+            exp.printStackTrace();
+        } catch (IllegalStateException exp)// catch empy text field
+        {
+            JOptionPane.showMessageDialog(null, "Please enter a first AND last name.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        return false;
+    }//end savePlayer
+
+    static public String[] loadPlayers()
+    {
+        String fileName = "src//Data//Players.txt";
+        try
+        {
+
+            FileReader freader = new FileReader(fileName);
+            BufferedReader inputFile = new BufferedReader(freader);
+
+            // Read the first name from the file.
+            String inputLines = inputFile.readLine();
+            ArrayList<String> data = new ArrayList<String>();
+
+            while (inputLines != null)
+            {
+                data.add(inputLines);
+                inputLines = inputFile.readLine();
+            }
+            if (data.size() > 0)
+            {
+                String players[] = new String[data.size()];
+                int i = 0;
+                for (String val : data)
+                {
+                    players[i] = val;
+                    i++;
+                }
+                freader.close();
+                return players;
+            } else
+            {
+                JOptionPane.showMessageDialog(null, "Players' List Empty.\nPlease add players using menu option.", "Data Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (FileNotFoundException exp) // catch file not found
+        {
+            exp.printStackTrace();
+        } catch (IOException exp) // catch reading error
+        {
+            exp.printStackTrace();
+        }
+        return null;
+    }//end player load
+
 }

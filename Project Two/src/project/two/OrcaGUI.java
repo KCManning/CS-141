@@ -168,6 +168,13 @@ public class OrcaGUI extends javax.swing.JFrame
         customerJLabel.setToolTipText("Please Select a Customer from the list");
 
         customerJComboBox.setToolTipText("Please Select a Customer from the list");
+        customerJComboBox.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                customerJComboBoxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout infoJPanelLayout = new javax.swing.GroupLayout(infoJPanel);
         infoJPanel.setLayout(infoJPanelLayout);
@@ -1205,6 +1212,11 @@ public class OrcaGUI extends javax.swing.JFrame
     {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
         clear();
     }//GEN-LAST:event_clearJMenuItemActionPerformed
+
+    private void customerJComboBoxActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_customerJComboBoxActionPerformed
+    {//GEN-HEADEREND:event_customerJComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_customerJComboBoxActionPerformed
 
     /**
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
