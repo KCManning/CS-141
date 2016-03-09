@@ -249,7 +249,7 @@ public class DataManager
         }
     }//Clear
 
-    static public void log(boolean remove, String name)
+    static public StringBuffer log(boolean remove, String name)
     {
         StringBuffer output = new StringBuffer();
         ArrayList<String> data = loadStats(remove, name);
@@ -267,9 +267,7 @@ public class DataManager
             output.append("No log saved. Please run then save.");
         }
 
-        JOptionPane.showMessageDialog(
-                null, output, "Log",
-                JOptionPane.INFORMATION_MESSAGE);
+        return output;
     }//log
 
     static public boolean savePlayer(String playerName)

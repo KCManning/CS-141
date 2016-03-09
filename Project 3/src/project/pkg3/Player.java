@@ -38,8 +38,8 @@ public class Player
             String name = players[i];
             stats[i] = DataManager.stats(false, name).toString();
             statsRemoved[i] = DataManager.stats(true, name).toString();
-            logs[i] = Datamanager.log(false, name).toString();
-            logsRemoved[i] = Datamanager.log(true, name).toString();
+            logs[i] = DataManager.log(false, name).toString();
+            logsRemoved[i] = DataManager.log(true, name).toString();
         }
 
     }//end constructor
@@ -61,6 +61,14 @@ public class Player
             return statsRemoved[index];
         else
             return stats[index];      
+    }
+    
+      static public String getLogs (int index, boolean remove)
+    {
+        if(remove)
+            return logsRemoved[index];
+        else
+            return logs[index];      
     }
 
 }

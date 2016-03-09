@@ -601,29 +601,35 @@ public class InsertPlayerGUI extends javax.swing.JFrame
      */
     private void save()
     {
-
-        //Verifies inputs are valid
-        if (!fNameJTextField.getText().isEmpty())
+        try
         {
-            if (!lNameJTextField.getText().isEmpty())
+            //Verifies inputs are valid
+            if (!fNameJTextField.getText().isEmpty())
             {
-                String playerName = fNameJTextField.getText() + " "
-                        + lNameJTextField.getText();
-                //Places the data in the file, closes file and window
-                if (DataManager.savePlayer(playerName))
+                if (!lNameJTextField.getText().isEmpty())
                 {
-                    new PickCardsGUI().setVisible(true);
-                    dispose();
+                    String playerName = fNameJTextField.getText() + " "
+                            + lNameJTextField.getText();
+                    //Places the data in the file, closes file and window
+                    if (DataManager.savePlayer(playerName))
+                    {
+                        new PickCardsGUI().setVisible(true);
+                        dispose();
+                    }
+                } else
+                {
+                    lNameJTextField.requestFocus();
+                    throw new IllegalStateException();
                 }
             } else
             {
-                lNameJTextField.requestFocus();
+                fNameJTextField.requestFocus();
                 throw new IllegalStateException();
             }
-        } else
+        } catch (IllegalStateException exp)// catch empy text field
         {
-            fNameJTextField.requestFocus();
-            throw new IllegalStateException();
+            JOptionPane.showMessageDialog(null, "Please enter a first AND last name.", "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -678,7 +684,7 @@ public class InsertPlayerGUI extends javax.swing.JFrame
         {
             public void run()
             {
-                new InsertPlayerGUI().setVisible(true);
+                new InsertPlayerGUI(null).setVisible(true);
             }
         });
     }

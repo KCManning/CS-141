@@ -439,8 +439,8 @@ public class PickCardsGUI extends javax.swing.JFrame
     private void statsJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_statsJMenuItemActionPerformed
     {//GEN-HEADEREND:event_statsJMenuItemActionPerformed
         JOptionPane.showMessageDialog(
-                null, player.getStats(playersJComboBox.getSelectedIndex(), removeJRadioButtonMenuItem.isSelected()), "Stats",
-                JOptionPane.INFORMATION_MESSAGE);
+                null, player.getStats(playersJComboBox.getSelectedIndex(), removeJRadioButtonMenuItem.isSelected()),
+                "Logs", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_statsJMenuItemActionPerformed
 
     private void printJButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_printJButtonActionPerformed
@@ -456,11 +456,28 @@ public class PickCardsGUI extends javax.swing.JFrame
     private void clearJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_clearJMenuItemActionPerformed
     {//GEN-HEADEREND:event_clearJMenuItemActionPerformed
         DataManager.clear(removeJRadioButtonMenuItem.isSelected(), playersJComboBox.getSelectedItem().toString());
+        player = new Player();
+        String defaultImage = "src//CardImages//b2fv.png";
+        card1JLabel.setIcon(new ImageIcon(defaultImage));
+        card2JLabel.setIcon(new ImageIcon(defaultImage));
+        card3JLabel.setIcon(new ImageIcon(defaultImage));
+        card4JLabel.setIcon(new ImageIcon(defaultImage));
+
+        drawsJLabel.setText(Integer.toString(0));
+
+        saveJButton.setEnabled(false);
+        saveJMenuItem.setEnabled(false);
+
+        printJButton.setEnabled(false);
+        printJMenuItem.setEnabled(false);
+
     }//GEN-LAST:event_clearJMenuItemActionPerformed
 
     private void logJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_logJMenuItemActionPerformed
     {//GEN-HEADEREND:event_logJMenuItemActionPerformed
-        DataManager.log(removeJRadioButtonMenuItem.isSelected(), playersJComboBox.getSelectedItem().toString());
+        JOptionPane.showMessageDialog(
+                null, player.getLogs(playersJComboBox.getSelectedIndex(), removeJRadioButtonMenuItem.isSelected()),
+                "Logs", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_logJMenuItemActionPerformed
 
     private void goJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_goJMenuItemActionPerformed
@@ -480,7 +497,7 @@ public class PickCardsGUI extends javax.swing.JFrame
 
     private void saveJMenuItemActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_saveJMenuItemActionPerformed
     {//GEN-HEADEREND:event_saveJMenuItemActionPerformed
-        // TODO add your handling code here:
+        save();
     }//GEN-LAST:event_saveJMenuItemActionPerformed
 
     public void save()
