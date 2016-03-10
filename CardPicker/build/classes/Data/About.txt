@@ -1,0 +1,12 @@
+Built by Kevin Manning in 2016 for CS& 141
+
+Based on code and requirements provided by Nico Cuvelski
+
+This program provides information about the number of tries
+required to draw 4 cards of DIFFERING suites. It can be
+configured to provide this information based on shuffling
+used cards back into the deck, or removing them from play
+to try again (Settings option).
+
+This data is stored based on the player playing, and can
+provide a log of games previously played.
